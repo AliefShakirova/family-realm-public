@@ -1,0 +1,12 @@
+<h2> Профиль пользователя </h2>
+
+<% if @user_profile.present? %>
+  <p><strong>Имя:</strong> <%= @user_profile.first_name %></p>
+  <p><strong>Фамилия:</strong> <%= @user_profile.last_name %></p>
+  <p><strong>Email:</strong> <%= current_user.email %></p>
+
+  <%= link_to "Редактировать профиль", edit_user_profile_path %>
+<% else %>
+  <p>Профиль ещё не заполнен</p>
+  <%= link_to "Заполнить профиль", edit_user_profile_path %>
+<% end %>

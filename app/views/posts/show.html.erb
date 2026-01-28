@@ -1,0 +1,15 @@
+<!-- создание этого html файла, для того чтоб после сохранения поста вернуть к самому уже сохраненному посту  -->
+
+<h1><%= @post.title %></h1>
+<p><%= @post.body %></p>
+<hr>
+<% if admin? %>
+  <%= link_to "Редактировать", edit_post_path(@post) %> |
+
+  <%= button_to "Удалить",
+                post_path(@post),
+                method: :delete,
+                data: { confirm: "Удалить пост?" },
+                class: "btn btn-danger" %>
+
+<% end %>

@@ -1,0 +1,49 @@
+<h2>Редактирование профиля</h2>
+<%= form_for @user_profile, url: user_profile_path, method: :patch do |f| %>
+
+  <div>
+    <%= f.label :first_name, "Имя" %>
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div>
+    <%= f.label :last_name, "Фамилия" %>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div>
+    <%= f.label :middle_name, "Отчество" %>
+    <%= f.text_field :middle_name %>
+  </div>
+
+  <div>
+    <%= f.label :maiden_name, "Девичья фамилия" %>
+    <%= f.text_field :maiden_name %>
+  </div>
+
+  <div>
+    <%= f.label :birth_date, "Дата рождения" %><br>
+    <%= f.date_select :birth_date,
+          start_year: 1700,
+          end_year: Date.today.year,
+          order: [:day, :month, :year] %>
+  </div>
+
+  <div>
+    <%= f.label :place_of_birth, "Место рождения" %>
+    <%= f.text_field :place_of_birth %>
+  </div>
+
+  <div>
+    <%= f.label :gender, "Пол" %>
+    <%= f.select :gender, ["mężczyzna", "kobieta"] %>
+  </div>
+
+  <div>
+    <%= f.label :description, "Описание" %>
+    <%= f.text_area :description %>
+  </div>
+
+    <%= f.submit "Сохранить" %>
+
+<% end %>
