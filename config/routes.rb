@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   #посты
   resources :posts
 
+  resources :groups
+
   #статические страницы
   get 'about', to: 'pages#about', as: 'about'
 

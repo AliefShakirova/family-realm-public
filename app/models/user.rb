@@ -12,7 +12,9 @@ class User < ApplicationRecord
   after_initialize :set_default_role, :if => :new_record? #after_initialize - это callback, то есть автоматическое действие
 
   #Powiązanie z postami - kluczowe dla działania current_user.posts
-  has_many :posts, dependent: :destroy
+  has_many :posts, dependent: :destroy #убрать или проверить согласно контроллеру постов
+
+  has_many :owned_groups, class_name: 'Group', foreign_key: 'owner_id'
 
   #метод который назначет роль enduser по умолчанию, если роль не присвоена вручную
   def set_default_role
