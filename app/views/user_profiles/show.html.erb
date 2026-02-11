@@ -5,7 +5,9 @@
   <p><strong>Фамилия:</strong> <%= @user_profile.last_name %></p>
   <p><strong>Email:</strong> <%= current_user.email %></p>
 
-  <%= link_to "Редактировать профиль", edit_user_profile_path %>
+  <%= link_to "Редактировать профиль", edit_user_profile_path %> |
+  <%= link_to "Создать группу", new_group_path, class: "btn btn-primary" %> |
+  <%= link_to "Мои группы", groups_path %>
 <% else %>
   <p>Профиль ещё не заполнен</p>
   <%= link_to "Заполнить профиль", edit_user_profile_path %>

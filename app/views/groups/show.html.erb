@@ -1,0 +1,18 @@
+<h1><%= @group.name %></h1>
+
+<p><strong>Описание:</strong></p>
+<p><%= @group.description %></p>
+
+<p><strong>Тип:</strong> <%= @group.privacy %></p>
+
+<p><strong>Создатель:</strong> <%= @group.owner.email %></p>
+
+<% if @group.owner == current_user %>
+  <%= link_to 'Редактировать', edit_group_path(@group) %> |
+  <%= button_to 'Удалить', group_path(@group), method: :delete, data: { confirm: 'Вы уверены?' } %> |
+  <%= link_to "Назад к профилю", user_profile_path %>
+<% end %>
+
+
+
+
