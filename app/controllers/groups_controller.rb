@@ -7,7 +7,13 @@ class GroupsController < ApplicationController
     @groups = current_user.owned_groups
   end
 
+  #В show проверка доступа к группе
   def show
+    @group = Group.find(params[:id])
+
+    unless @group.members.include?(current_user) || @group.owner == current_user
+      redirect_to groups_path, alert: "Нет доступа к этой группе"
+    end
   end
 
   def new
@@ -18,14 +24,20 @@ class GroupsController < ApplicationController
     @group = current_user.owned_groups.build(group_params)
 
     if @group.save
-      redirect_to @group, notice: 'Группа создана'
+      GroupMember.create!(
+        user: current_user,
+        group: @group,
+        role: "owner"
+      )
+
+      redirect_to @group, notice: 'Group was successfully created'
     else
       render :new
     end
   end
 
-    def edit
-    end
+  def edit
+  end
 
   def update
     if @group.update(group_params)
