@@ -9,10 +9,13 @@
 
 <% if @group.owner == current_user %>
   <%= link_to 'Редактировать', edit_group_path(@group) %> |
-  <%= button_to 'Удалить', group_path(@group), method: :delete, data: { confirm: 'Вы уверены?' } %> |
-  <%= link_to "Назад к профилю", user_profile_path %>
+  <%= button_to 'Удалить', group_path(@group), method: :delete, data: { confirm: 'Вы уверены?' } %>
 <% end %>
 
+<h3>Участники</h3>
 
+<% @group.members.each do |member| %>
+  <p><%= member.email %></p>
+<% end %>
 
-
+<%= link_to "Назад к профилю", user_profile_path %>
