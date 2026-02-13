@@ -16,6 +16,10 @@ class User < ApplicationRecord
 
   has_many :owned_groups, class_name: 'Group', foreign_key: 'owner_id'
 
+  has_many :group_members #группы где пользователь owner(то есть создатель)
+
+  has_many :member_groups, through: :group_members, source: :group #группы где пользователь участник
+
   #метод который назначет роль enduser по умолчанию, если роль не присвоена вручную
   def set_default_role
     self.role ||= :enduser
