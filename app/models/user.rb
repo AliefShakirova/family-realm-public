@@ -14,12 +14,14 @@ class User < ApplicationRecord
   #Powiązanie z postami - kluczowe dla działania current_user.posts
   has_many :posts, dependent: :destroy #убрать или проверить согласно контроллеру постов
 
-  has_many :owned_groups, class_name: 'Group', foreign_key: 'owner_id'
+  has_many :owned_groups, class_name: 'Group', foreign_key: :owner_id
 
-  has_many :group_members #группы где пользователь owner(то есть создатель)
+  has_many :group_members, dependent: :destroy #группы где пользователь owner(то есть создатель)
+  #has_many :member_groups, through: :group_members, source: :group #группы где пользователь участник
 
-  has_many :member_groups, through: :group_members, source: :group #группы где пользователь участник
+  has_many :groups, through: :group_members #для появления у пользователя групп в которых он состоит, и куда его пригласили
 
+  has_many :sent_invitations, class_name: "GroupInvitation", foreign_key: :invited_by
   #метод который назначет роль enduser по умолчанию, если роль не присвоена вручную
   def set_default_role
     self.role ||= :enduser
