@@ -13,10 +13,16 @@ Rails.application.routes.draw do
   #посты
   resources :posts
 
-  resources :groups
+  resources :groups do
+    post :invite, on: :member
+  end
 
   #статические страницы
   get 'about', to: 'pages#about', as: 'about'
+
+  get "invites/:token", to: "group_invitations#show", as: :invite
+
+  post "invites/:token/accept", to: "group_invitations#accept", as: :accept_invite
 
   # отвечает исключительно за основную/главную страницу
   root 'posts#index'
