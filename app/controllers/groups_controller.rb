@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
   before_action :authorize_owner, only: [:edit, :update, :destroy]
 
   def index
-    @groups = current_user.owned_groups
+    @groups = current_user.groups
   end
 
   #В show проверка доступа к группе
@@ -30,7 +30,7 @@ class GroupsController < ApplicationController
         role: "owner"
       )
 
-      redirect_to @group, notice: 'Group was successfully created'
+      redirect_to @group, notice: 'Группа создана'
     else
       render :new
     end
@@ -51,6 +51,39 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @group.destroy
     redirect_to groups_path, notice: "Группа удалена"
+  end
+
+  def invite
+    @group = Group.find(params[:id])
+
+    unless @group.owner == current_user
+      redirect_to @group, alert: "Только создатель группы может приглашать"
+      return
+    end
+
+    email = params[:email]
+
+    # Проверка: уже участник?
+    existing_user = User.find_by(email: email)
+    if existing_user && @group.members.include?(existing_user)
+      redirect_to @group, alert: "Пользователь уже состоит в группе"
+      return
+    end
+
+    # Проверка: уже есть pending invite?
+    if @group.group_invitations.where(email: email, status: "pending").exists?
+      redirect_to @group, alert: "Приглашение уже отправлено"
+      return
+    end
+
+    invitation = @group.group_invitations.create!(
+      email: email,
+      invited_by: current_user.id
+    )
+
+    InvitationMailer.invite(email, @group, invitation.token).deliver_now
+
+    redirect_to @group, notice: "Приглашение отправлено"
   end
 
   private
