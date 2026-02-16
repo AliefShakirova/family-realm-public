@@ -18,4 +18,14 @@
   <p><%= member.email %></p>
 <% end %>
 
+<% if @group.owner == current_user %>
+  <h3>Пригласить участника</h3>
+
+  <%= form_with url: invite_group_path(@group), method: :post do %>
+    <%= label_tag :email, "Email" %>
+    <%= text_field_tag :email %>
+    <%= submit_tag "Отправить приглашение" %>
+  <% end %>
+<% end %>
+
 <%= link_to "Назад к профилю", user_profile_path %>
