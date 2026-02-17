@@ -15,6 +15,11 @@ Rails.application.routes.draw do
 
   resources :groups do
     post :invite, on: :member
+    resources :ancestors do
+      member do
+        delete :purge_document
+      end
+    end
   end
 
   #статические страницы
