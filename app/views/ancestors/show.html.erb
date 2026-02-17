@@ -1,0 +1,27 @@
+<h1><%= @ancestor.last_name %> <%= @ancestor.first_name %> <%= @ancestor.middle_name %></h1>
+
+<p><%= @ancestor.description %></p>
+
+<p>Дата рождения: <%= @ancestor.birth_date %></p>
+
+<% if @ancestor.alive? %>
+  <p>Статус: Жив</p>
+  <p>Телефон: <%= @ancestor.phone %></p>
+  <p>Адрес: <%= @ancestor.current_address %></p>
+<% else %>
+  <p>Статус: Умер</p>
+  <p>Дата смерти: <%= @ancestor.death_date %></p>
+  <p>Место смерти: <%= @ancestor.death_place %></p>
+<% end %>
+<p>Место рождения: <%= @ancestor.birth_place %></p>
+
+<% if @ancestor.photo.attached? %>
+  <%= image_tag @ancestor.photo, width: 200 %>
+<% end %>
+
+<h3>Документы</h3>
+<% @ancestor.documents.each do |doc| %>
+  <%= link_to doc.filename, doc %><br>
+<% end %>
+
+<%= link_to "Редактировать", edit_group_ancestor_path(@group, @ancestor) %>
