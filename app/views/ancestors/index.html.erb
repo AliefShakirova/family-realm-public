@@ -1,0 +1,11 @@
+<h1>Предки группы</h1>
+
+<%= link_to "Добавить предка", new_group_ancestor_path(@group) %>
+
+<% @ancestors.each do |ancestor| %>
+  <div>
+    <h3>
+      <%= link_to "#{ancestor.last_name} #{ancestor.first_name}", [@group, ancestor] %>
+    </h3>
+  </div>
+<% end %>
