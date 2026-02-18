@@ -14,11 +14,15 @@ Rails.application.routes.draw do
   resources :posts
 
   resources :groups do
+
     post :invite, on: :member
+
     resources :ancestors do
       member do
         delete :purge_document
       end
+
+      resources :relationships, only: [:new, :create, :destroy]
     end
   end
 
