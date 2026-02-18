@@ -86,6 +86,11 @@ class GroupsController < ApplicationController
     redirect_to @group, notice: "Приглашение отправлено"
   end
 
+  def members
+    @group = Group.find(params[:id])
+    # Сюда можно добавить логику, если нужно, но пока хватит поиска группы
+  end
+
   private
 
   def set_group
