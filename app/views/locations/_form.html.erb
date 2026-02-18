@@ -1,0 +1,32 @@
+<%= form_with(model: [@group, location], local: true) do |form| %>
+
+  <% if location.errors.any? %>
+    <div class="alert alert-danger">
+      <h4>Ошибка сохранения:</h4>
+      <ul>
+        <% location.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :name, "Название места", class: "form-label" %>
+    <%= form.text_field :name, class: "form-control", placeholder: "Например: Родовой дом в деревне, Церковь..." %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :address, "Адрес (или координаты)", class: "form-label" %>
+    <%= form.text_field :address, class: "form-control", placeholder: "г. Москва, ул. Ленина, д. 5" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, "Описание / История места", class: "form-label" %>
+    <%= form.text_area :description, rows: 4, class: "form-control" %>
+  </div>
+
+  <div class="d-grid gap-2">
+    <%= form.submit "Сохранить место", class: "btn btn-primary" %>
+  </div>
+<% end %>
