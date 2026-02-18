@@ -1,0 +1,33 @@
+<div class="card bg-light mt-3">
+  <div class="card-body">
+    <h5>Добавить новую связь</h5>
+
+    <%= form_with model: [group, ancestor, new_relationship], local: true do |f| %>
+
+      <div class="row">
+        <div class="col-md-5">
+          <%= f.label :relation_type, "Кто он(а)?" %>
+          <%= f.select :relation_type,
+                       options_for_select([['Отец', 'father'], ['Мать', 'mother'], ['Супруг(а)', 'spouse'], ['Ребенок', 'child']]),
+                       { prompt: "Выберите тип" },
+                       class: "form-control" %>
+        </div>
+
+        <div class="col-md-5">
+          <%= f.label :relative_id, "Родственник" %>
+          <%= f.collection_select :relative_id,
+                                  group.ancestors.where.not(id: ancestor.id),
+                                  :id,
+                                  :full_name,
+                                  { prompt: "Выберите человека" },
+                                  class: "form-control" %>
+        </div>
+
+        <div class="col-md-2 d-flex align-items-end">
+          <%= f.submit "Добавить", class: "btn btn-success w-100" %>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>
