@@ -1,0 +1,21 @@
+<div class="list-group mb-4">
+  <div class="list-group-item list-group-item-light disabled text-uppercase small">
+    Личный кабинет
+  </div>
+
+  <%= link_to user_profile_path, class: "list-group-item list-group-item-action #{'active' if request.path == user_profile_path}" do %>
+    👤 Мой профиль
+  <% end %>
+
+  <%= link_to groups_path, class: "list-group-item list-group-item-action #{'active' if request.path == groups_path}" do %>
+    📂 Мои группы
+  <% end %>
+
+  <%= link_to new_group_path, class: "list-group-item list-group-item-action #{'active' if request.path == new_group_path}" do %>
+    ➕ Создать группу
+  <% end %>
+</div>
+
+<div class="d-grid">
+  <%= button_to "Выйти", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger btn-sm w-100" %>
+</div>

@@ -1,14 +1,45 @@
-<h2> Профиль пользователя </h2>
+<div class="row mt-4">
+  <div class="col-md-3">
+    <%= render "users/user_sidebar" %> </div>
 
-<% if @user_profile.present? %>
-  <p><strong>Имя:</strong> <%= @user_profile.first_name %></p>
-  <p><strong>Фамилия:</strong> <%= @user_profile.last_name %></p>
-  <p><strong>Email:</strong> <%= current_user.email %></p>
+  <div class="col-md-9">
 
-  <%= link_to "Редактировать профиль", edit_user_profile_path %> |
-  <%= link_to "Создать группу", new_group_path, class: "btn btn-primary" %> |
-  <%= link_to "Мои группы", groups_path %>
-<% else %>
-  <p>Профиль ещё не заполнен</p>
-  <%= link_to "Заполнить профиль", edit_user_profile_path %>
-<% end %>
+    <div class="card shadow-sm">
+      <div class="card-header bg-white">
+        <h3 class="mb-0">Профиль пользователя</h3>
+      </div>
+      <div class="card-body">
+
+        <div class="row mb-3">
+          <label class="col-sm-3 col-form-label text-muted">Имя</label>
+          <div class="col-sm-9">
+            <p class="form-control-plaintext fw-bold"><%= current_user.first_name || "Не указано" %></p> </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-3 col-form-label text-muted">Фамилия</label>
+          <div class="col-sm-9">
+            <p class="form-control-plaintext fw-bold"><%= current_user.last_name || "Не указано" %></p>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-3 col-form-label text-muted">Email</label>
+          <div class="col-sm-9">
+            <p class="form-control-plaintext"><%= current_user.email %></p>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="d-flex">
+          <%= link_to "Редактировать профиль", edit_user_profile_path, class: "btn btn-primary me-2" %>
+
+          <%= link_to "Сменить пароль", edit_user_registration_path, class: "btn btn-outline-secondary" %>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
