@@ -7,6 +7,7 @@ class AncestorsController < ApplicationController
   end
 
   def show
+    @new_relationship = Relationship.new
   end
 
   def new
@@ -44,13 +45,6 @@ class AncestorsController < ApplicationController
     @ancestor.destroy
     redirect_to group_ancestors_path(@group), notice: "Удалено"
   end
-
-  #def delete_document
-  #@ancestor = Ancestor.find(params[:id])
-  #doc = @ancestor.documents.find(params[:document_id])
-  #doc.purge
-  #redirect_to edit_group_ancestor_path(@group, @ancestor), notice: "Документ удалён"
-  #end
 
   def purge_document
     # 1. Ищем группу и предка (благодаря before_action это может быть не нужно,
