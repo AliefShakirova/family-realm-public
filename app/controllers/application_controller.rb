@@ -8,6 +8,18 @@ class ApplicationController < ActionController::Base
 
   before_action :accept_pending_invite
 
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  protected
+
+  def configure_permitted_parameters
+    # Разрешаем эти поля при регистрации (Sign Up)
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
+
+    # Разрешаем эти поля при редактировании профиля (Account Update)
+    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name])
+  end
+
   private
 
   # выбрасывается ошибка, и ловится методом user_not_authorized, и выводится сообщение
