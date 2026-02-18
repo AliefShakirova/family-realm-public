@@ -2,20 +2,22 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
     sessions: 'users/sessions',
-    registrations: 'users/registrations'}
+    registrations: 'users/registrations' }
 
-  #профиль текущуего пользователя
+  # профиль текущуего пользователя
   resource :user_profile, only: [:show, :edit, :update]
 
-  #пользователи
+  # пользователи
   resources :users
 
-  #посты
+  # посты
   resources :posts
 
   resources :groups do
 
     post :invite, on: :member
+
+    get :members, on: :member
 
     resources :ancestors do
       member do
@@ -24,9 +26,11 @@ Rails.application.routes.draw do
 
       resources :relationships, only: [:new, :create, :destroy]
     end
+
+    resources :locations
   end
 
-  #статические страницы
+  # статические страницы
   get 'about', to: 'pages#about', as: 'about'
 
   get "invites/:token", to: "group_invitations#show", as: :invite
