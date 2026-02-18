@@ -1,27 +1,65 @@
 <h1><%= @ancestor.last_name %> <%= @ancestor.first_name %> <%= @ancestor.middle_name %></h1>
 
-<p><%= @ancestor.description %></p>
+<div class="row">
+  <div class="col-md-4">
+    <% if @ancestor.photo.attached? %>
+      <%= image_tag @ancestor.photo, class: "img-fluid rounded mb-3" %>
+    <% else %>
+      <div class="alert alert-secondary">Нет фото</div>
+    <% end %>
+  </div>
 
-<p>Дата рождения: <%= @ancestor.birth_date %></p>
+  <div class="col-md-8">
+    <p class="lead"><%= @ancestor.description %></p>
 
-<% if @ancestor.alive? %>
-  <p>Статус: Жив</p>
-  <p>Телефон: <%= @ancestor.phone %></p>
-  <p>Адрес: <%= @ancestor.current_address %></p>
-<% else %>
-  <p>Статус: Умер</p>
-  <p>Дата смерти: <%= @ancestor.death_date %></p>
-  <p>Место смерти: <%= @ancestor.death_place %></p>
-<% end %>
-<p>Место рождения: <%= @ancestor.birth_place %></p>
+    <table class="table table-borderless">
+      <tr>
+        <th>Дата рождения:</th>
+        <td><%= @ancestor.birth_date %> (<%= @ancestor.birth_place %>)</td>
+      </tr>
 
-<% if @ancestor.photo.attached? %>
-  <%= image_tag @ancestor.photo, width: 200 %>
-<% end %>
+      <% if @ancestor.alive? %>
+        <tr><th>Статус:</th><td><span class="badge bg-success">Жив</span></td></tr>
+        <tr><th>Телефон:</th><td><%= @ancestor.phone %></td></tr>
+        <tr><th>Адрес:</th><td><%= @ancestor.current_address %></td></tr>
+      <% else %>
+        <tr><th>Статус:</th><td><span class="badge bg-secondary">Умер</span></td></tr>
+        <tr><th>Дата смерти:</th><td><%= @ancestor.death_date %> (<%= @ancestor.death_place %>)</td></tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
 
 <h3>Документы</h3>
-<% @ancestor.documents.each do |doc| %>
-  <%= link_to doc.filename, doc %><br>
+<% if @ancestor.documents.attached? %>
+  <div class="mb-4">
+    <% @ancestor.documents.each do |doc| %>
+      <%= link_to doc.filename, doc, class: "btn btn-outline-primary btn-sm me-2 mb-2", target: "_blank" %><br>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-muted">Документов нет.</p>
 <% end %>
 
-<%= link_to "Редактировать", edit_group_ancestor_path(@group, @ancestor) %>
+<hr>
+
+<h3>Семья</h3>
+
+<%= render "relationships/form", group: @group, ancestor: @ancestor, new_relationship: @new_relationship %>
+
+<ul class="list-group mt-3">
+  <% if @ancestor.active_relationships.any? %>
+    <%= render partial: "relationships/relationship",
+               collection: @ancestor.active_relationships,
+               locals: { group: @group, ancestor: @ancestor } %>
+  <% else %>
+    <li class="list-group-item text-muted">Родственные связи еще не добавлены.</li>
+  <% end %>
+</ul>
+
+<div class="mt-5">
+  <%= link_to "Редактировать данные предка", edit_group_ancestor_path(@group, @ancestor), class: "btn btn-primary" %>
+  <%= link_to "Назад к списку", group_ancestors_path(@group), class: "btn btn-outline-secondary" %>
+</div>
