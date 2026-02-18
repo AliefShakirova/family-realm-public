@@ -1,33 +1,45 @@
-<h1><%= @group.name %></h1>
+<div class="row mt-4">
+  <div class="col-md-3">
+    <%= render "sidebar" %>
+  </div>
 
-<p><strong>Описание:</strong></p>
-<p><%= @group.description %></p>
+  <div class="col-md-9">
 
-<p><strong>Тип:</strong> <%= @group.privacy %></p>
+    <h5 class="text-muted">Описание:</h5>
+    <p class="lead"><%= @group.description %></p>
 
-<p><strong>Создатель:</strong> <%= @group.owner.email %></p>
+    <hr>
 
-<% if @group.owner == current_user %>
-  <%= link_to 'Редактировать', edit_group_path(@group) %> |
-  <%= button_to 'Удалить', group_path(@group), method: :delete, data: { confirm: 'Вы уверены?' } %>
-<% end %>
+    <div class="d-flex justify-content-between align-items-center">
+      <small class="text-muted">Управление группой</small>
 
-<h3>Участники</h3>
+      <div class="btn-group">
+        <%= link_to "Редактировать", edit_group_path(@group), class: "btn btn-outline-primary" %>
 
-<% @group.members.each do |member| %>
-  <p><%= member.email %></p>
-<% end %>
+        <%= button_to "Удалить группу",
+                      group_path(@group),
+                      method: :delete,
+                      class: "btn btn-danger",
+                      form: { style: 'display:inline-block;' },
+                      data: { turbo_confirm: "Вы уверены? Это удалит ВСЕ данные семьи безвозвратно!" }
+        %>
+      </div>
+    </div>
 
-<% if @group.owner == current_user %>
-  <h3>Пригласить участника</h3>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h1 class="display-5"><%= @group.name %></h1>
+        <span class="badge bg-primary mb-3"><%= @group.privacy || "Private" %></span>
+        <h5 class="text-muted">Описание:</h5>
+        <p class="lead"><%= @group.description %></p>
+      </div>
+    </div>
 
-  <%= form_with url: invite_group_path(@group), method: :post do %>
-    <%= label_tag :email, "Email" %>
-    <%= text_field_tag :email %>
-    <%= submit_tag "Отправить приглашение" %>
-  <% end %>
-<% end %>
+    <div class="alert alert-light border">
+      <h4>Добро пожаловать в архив семьи!</h4>
+      <p>Используйте меню слева для навигации по разделам: добавляйте предков, отмечайте памятные места и приглашайте
+        родственников.</p>
+    </div>
 
-<%= link_to "Предки", group_ancestors_path(@group) %>
-
-<%= link_to "Назад к профилю", user_profile_path %>
+  </div>
+</div>

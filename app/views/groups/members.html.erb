@@ -1,0 +1,47 @@
+<div class="row mt-4">
+  <div class="col-md-3">
+    <%= render "sidebar" %>
+  </div>
+
+  <div class="col-md-9">
+    <h2>Участники группы</h2>
+
+    <div class="card mb-4">
+      <ul class="list-group list-group-flush">
+        <%# Замени members на то, как у тебя называется связь (например, @group.users) %>
+        <% if @group.users.any? %>
+          <% @group.users.each do |user| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <%= user.email %>
+              <% if user == @group.owner %>
+                <span class="badge bg-warning text-dark">Админ</span>
+              <% else %>
+                <span class="badge bg-secondary">Участник</span>
+              <% end %>
+            </li>
+          <% end %>
+        <% else %>
+          <li class="list-group-item">Только вы</li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="card bg-light">
+      <div class="card-body">
+        <h4>Пригласить нового участника</h4>
+        <p class="text-muted small">Введите Email родственника, чтобы отправить ему ключ доступа.</p>
+
+        <%= form_with url: invite_group_path(@group), method: :post, local: true, class: "row g-3" do |f| %>
+          <div class="col-md-8">
+            <%= f.label :email, "Email адрес", class: "visually-hidden" %>
+            <%= f.email_field :email, placeholder: "example@gmail.com", class: "form-control", required: true %>
+          </div>
+          <div class="col-md-4">
+            <%= f.submit "Отправить приглашение", class: "btn btn-primary w-100" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>

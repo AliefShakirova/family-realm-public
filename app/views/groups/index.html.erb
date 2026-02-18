@@ -1,11 +1,32 @@
-<h1>Мои группы</h1>
-
-<%= link_to 'Создать группу', new_group_path %>
-
-<% @groups.each do |group| %>
-  <div>
-    <h3><%= link_to group.name, group %></h3>
-    <p><%= group.description %></p>
-    <p>Тип: <%= group.privacy %></p>
+<div class="row mt-4">
+  <div class="col-md-3">
+    <%= render "users/user_sidebar" %>
   </div>
-<% end %>
+
+  <div class="col-md-9">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2>Мои группы</h2>
+      <%= link_to "Новая группа", new_group_path, class: "btn btn-success btn-sm" %>
+    </div>
+
+    <% if @groups.any? %>
+      <div class="row">
+        <% @groups.each do |group| %>
+          <div class="col-md-6 mb-3">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title"><%= group.name %></h5>
+                <p class="card-text text-truncate"><%= group.description %></p>
+                <%= link_to "Открыть архив", group_path(group), class: "btn btn-outline-primary stretched-link" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="alert alert-info">
+        Вы еще не состоите ни в одной семейной группе. Создайте свою!
+      </div>
+    <% end %>
+  </div>
+</div>

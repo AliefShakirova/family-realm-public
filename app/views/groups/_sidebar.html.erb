@@ -1,0 +1,25 @@
+<div class="list-group mb-4">
+  <%= link_to group_path(@group), class: "list-group-item list-group-item-action #{'active' if current_page?(group_path(@group))}" do %>
+    🏠 Обзор группы
+  <% end %>
+
+  <%= link_to group_ancestors_path(@group), class: "list-group-item list-group-item-action #{'active' if request.path.include?('ancestors')}" do %>
+    🌳 Древо / Предки
+  <% end %>
+
+  <%= link_to group_locations_path(@group), class: "list-group-item list-group-item-action #{'active' if request.path.include?('locations')}" do %>
+    🌍 Места
+  <% end %>
+
+  <%= link_to members_group_path(@group), class: "list-group-item list-group-item-action #{'active' if current_page?(members_group_path(@group))}" do %>
+    👥 Участники и Приглашения
+  <% end %>
+
+  <%= link_to edit_group_path(@group), class: "list-group-item list-group-item-action" do %>
+    ⚙️ Настройки
+  <% end %>
+</div>
+
+<div class="d-grid">
+  <%= link_to "Назад к профилю", user_profile_path, class: "btn btn-outline-secondary btn-sm" %>
+</div>
