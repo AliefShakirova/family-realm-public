@@ -4,6 +4,8 @@ class Group < ApplicationRecord
   has_many :group_members, dependent: :destroy
   has_many :members, through: :group_members, source: :user
 
+  has_many :users, through: :group_members, source: :user
+
   has_many :group_invitations, dependent: :destroy
 
   has_many :ancestors, dependent: :destroy
