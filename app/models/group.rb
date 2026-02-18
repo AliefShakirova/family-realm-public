@@ -8,6 +8,8 @@ class Group < ApplicationRecord
 
   has_many :ancestors, dependent: :destroy
 
+  has_many :locations, dependent: :destroy
+
   validates :name, presence: true
   validates :privacy, inclusion: { in: %w(private public) }
 end
