@@ -59,6 +59,38 @@
   <% end %>
 </ul>
 
+<h3>Родители</h3>
+<ul>
+  <% @ancestor.active_relationships.where(relation_type: ['father', 'mother']).each do |rel| %>
+    <li><%= link_to rel.relative.full_name, group_ancestor_path(@group, rel.relative) %> (<%= rel.relation_type %>)</li>
+  <% end %>
+
+  <% @ancestor.passive_relationships.where(relation_type: 'child').each do |rel| %>
+    <li><%= link_to rel.ancestor.full_name, group_ancestor_path(@group, rel.ancestor) %> (Родитель)</li>
+  <% end %>
+</ul>
+
+<h3>Дети</h3>
+<ul>
+  <% @ancestor.active_relationships.where(relation_type: 'child').each do |rel| %>
+    <li><%= link_to rel.relative.full_name, group_ancestor_path(@group, rel.relative) %></li>
+  <% end %>
+
+  <% @ancestor.passive_relationships.where(relation_type: ['father', 'mother']).each do |rel| %>
+    <li><%= link_to rel.ancestor.full_name, group_ancestor_path(@group, rel.ancestor) %></li>
+  <% end %>
+</ul>
+
+<h3>Супруги</h3>
+<ul>
+  <% spouses = @ancestor.active_relationships.where(relation_type: 'spouse').map(&:relative) +
+    @ancestor.passive_relationships.where(relation_type: 'spouse').map(&:ancestor) %>
+
+  <% spouses.each do |spouse| %>
+    <li><%= link_to spouse.full_name, group_ancestor_path(@group, spouse) %></li>
+  <% end %>
+</ul>
+
 <div class="mt-5">
   <%= link_to "Редактировать данные предка", edit_group_ancestor_path(@group, @ancestor), class: "btn btn-primary" %>
   <%= link_to "Назад к списку", group_ancestors_path(@group), class: "btn btn-outline-secondary" %>
