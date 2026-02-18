@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_16_153651) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_17_153924) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -100,6 +100,18 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_16_153651) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "relationships", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.bigint "ancestor_id", null: false
+    t.bigint "relative_id", null: false
+    t.string "relation_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ancestor_id"], name: "index_relationships_on_ancestor_id"
+    t.index ["group_id"], name: "index_relationships_on_group_id"
+    t.index ["relative_id"], name: "index_relationships_on_relative_id"
+  end
+
   create_table "user_profiles", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "first_name"
@@ -136,5 +148,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_16_153651) do
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "relationships", "ancestors"
+  add_foreign_key "relationships", "ancestors", column: "relative_id"
+  add_foreign_key "relationships", "groups"
   add_foreign_key "user_profiles", "users"
 end
