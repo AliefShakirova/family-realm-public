@@ -91,6 +91,47 @@
   <% end %>
 </ul>
 
+<div class="card shadow-sm mt-4">
+  <div class="card-header bg-light">
+    <h4 class="mb-0">📜 Хронология событий</h4>
+  </div>
+
+  <div class="card-body p-0">
+    <% if @ancestor.events.any? %>
+      <div class="list-group list-group-flush">
+
+        <% @ancestor.events.order(event_date: :asc).each do |event| %>
+          <%= link_to group_event_path(@group, event), class: "list-group-item list-group-item-action d-flex justify-content-between align-items-center" do %>
+
+            <div>
+              <h6 class="mb-1 fw-bold"><%= event.title %></h6>
+
+              <small class="text-muted">
+                <% if event.location %>
+                  📍 <%= event.location.name %>
+                <% elsif event.location_name.present? %>
+                  📍 <%= event.location_name %>
+                <% end %>
+              </small>
+            </div>
+
+            <span class="badge bg-secondary rounded-pill">
+              <%= event.event_date.strftime("%d.%m.%Y") if event.event_date %>
+            </span>
+
+          <% end %>
+        <% end %>
+
+      </div>
+    <% else %>
+      <div class="p-3 text-muted">
+        События для этого человека пока не добавлены.
+        <%= link_to "Добавить событие", new_group_event_path(@group), class: "text-decoration-none" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
 <div class="mt-5">
   <%= link_to "Редактировать данные предка", edit_group_ancestor_path(@group, @ancestor), class: "btn btn-primary" %>
   <%= link_to "Назад к списку", group_ancestors_path(@group), class: "btn btn-outline-secondary" %>
