@@ -1,49 +1,63 @@
 <h2>Редактирование профиля</h2>
-<%= form_for @user_profile, url: user_profile_path, method: :patch do |f| %>
+
+<%= form_for @user_profile, url: user_profile_path, method: :patch, data: { turbo: false } do |f| %>
+
+  <% if @user_profile.errors.any? %>
+    <div style="color: red; background-color: #fee; padding: 15px; border: 1px solid red; margin-bottom: 20px; border-radius: 5px;">
+      <h4>Не удалось сохранить профиль:</h4>
+      <ul>
+        <% @user_profile.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <div>
-    <%= f.label :first_name, "Имя" %>
+    <%= f.label :first_name, "Имя" %><br>
     <%= f.text_field :first_name %>
   </div>
 
-  <div>
-    <%= f.label :last_name, "Фамилия" %>
+  <div style="margin-top: 10px;">
+    <%= f.label :last_name, "Фамилия" %><br>
     <%= f.text_field :last_name %>
   </div>
 
-  <div>
-    <%= f.label :middle_name, "Отчество" %>
+  <div style="margin-top: 10px;">
+    <%= f.label :middle_name, "Отчество" %><br>
     <%= f.text_field :middle_name %>
   </div>
 
-  <div>
-    <%= f.label :maiden_name, "Девичья фамилия" %>
+  <div style="margin-top: 10px;">
+    <%= f.label :maiden_name, "Девичья фамилия" %><br>
     <%= f.text_field :maiden_name %>
   </div>
 
-  <div>
+  <div style="margin-top: 10px;">
     <%= f.label :birth_date, "Дата рождения" %><br>
     <%= f.date_select :birth_date,
-          start_year: 1700,
-          end_year: Date.today.year,
-          order: [:day, :month, :year] %>
+                      start_year: 1700,
+                      end_year: Date.today.year,
+                      order: [:day, :month, :year] %>
   </div>
 
-  <div>
-    <%= f.label :place_of_birth, "Место рождения" %>
+  <div style="margin-top: 10px;">
+    <%= f.label :place_of_birth, "Место рождения" %><br>
     <%= f.text_field :place_of_birth %>
   </div>
 
-  <div>
-    <%= f.label :gender, "Пол" %>
-    <%= f.select :gender, ["mężczyzna", "kobieta"] %>
+  <div style="margin-top: 10px;">
+    <%= f.label :gender, "Пол" %><br>
+    <%= f.select :gender, ["mężczyzna", "kobieta"], include_blank: "Не указано" %>
   </div>
 
-  <div>
-    <%= f.label :description, "Описание" %>
-    <%= f.text_area :description %>
+  <div style="margin-top: 10px;">
+    <%= f.label :description, "Описание" %><br>
+    <%= f.text_area :description, rows: 4 %>
   </div>
 
-    <%= f.submit "Сохранить" %>
+  <div style="margin-top: 20px;">
+    <%= f.submit "Сохранить изменения" %>
+  </div>
 
 <% end %>
