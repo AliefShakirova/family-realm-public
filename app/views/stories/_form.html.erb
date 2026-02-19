@@ -1,0 +1,45 @@
+<%= form_with(model: [@group, @story], local: true) do |f| %>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="mb-3">
+        <%= f.label :title, "Заголовок истории", class: "form-label fw-bold" %>
+        <%= f.text_field :title, class: "form-control form-control-lg", required: true %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :story_date, "Когда это произошло? (Дата)", class: "form-label fw-bold" %>
+        <%= f.date_field :story_date, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :content, "Текст истории", class: "form-label fw-bold" %>
+        <%= f.text_area :content, rows: 8, class: "form-control", required: true %>
+      </div>
+
+      <div class="mb-4 p-3 border rounded bg-light">
+        <%= f.label :media, "📎 Прикрепить фото", class: "form-label fw-bold" %>
+        <%= f.file_field :media, multiple: true, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-header bg-light">
+          <h6 class="mb-0">О ком эта история?</h6>
+        </div>
+        <div class="card-body" style="max-height: 300px; overflow-y: auto;">
+          <%= f.collection_check_boxes :ancestor_ids, @group.ancestors, :id, :full_name do |b| %>
+            <div class="form-check">
+              <%= b.check_box class: "form-check-input" %>
+              <%= b.label class: "form-check-label" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <%= f.submit "Сохранить историю", class: "btn btn-primary btn-lg" %>
+  <%= link_to "Отмена", group_stories_path(@group), class: "btn btn-outline-secondary btn-lg ms-2" %>
+<% end %>

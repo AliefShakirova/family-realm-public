@@ -1,0 +1,37 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>📖 Семейные истории</h1>
+  <%= link_to "Написать историю", new_group_story_path(@group), class: "btn btn-success" %>
+</div>
+
+<% if @stories.any? %>
+  <div class="row">
+    <% @stories.each do |story| %>
+      <div class="col-md-6 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h4 class="card-title fw-bold">
+              <%= link_to story.title, group_story_path(@group, story), class: "text-decoration-none text-dark" %>
+            </h4>
+
+            <h6 class="card-subtitle mb-3 text-muted">
+              ✍️ <%= story.user.email %> | 🕒 <%= story.created_at.strftime("%d.%m.%Y") %>
+            </h6>
+
+            <p class="card-text text-muted">
+              <%= truncate(story.content, length: 150) %>
+            </p>
+          </div>
+          <div class="card-footer bg-white border-0 text-end">
+            <%= link_to "Читать далее →", group_story_path(@group, story), class: "btn btn-sm btn-outline-primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="alert alert-info text-center mt-4 p-5 shadow-sm">
+    <h4>Здесь пока пусто 🖋️</h4>
+    <p>Сохраните воспоминания, легенды или забавные случаи из жизни вашей семьи.</p>
+    <%= link_to "Написать первую историю", new_group_story_path(@group), class: "btn btn-primary mt-2" %>
+  </div>
+<% end %>

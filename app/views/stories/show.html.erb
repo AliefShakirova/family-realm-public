@@ -1,0 +1,61 @@
+<div class="card shadow-sm mb-4">
+  <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+    <h2 class="mb-0 fw-bold"><%= @story.title %></h2>
+    <div>
+      <% if current_user == @story.user %>
+        <%= link_to "Редактировать", edit_group_story_path(@group, @story), class: "btn btn-outline-primary btn-sm" %>
+        <%= button_to "Удалить", group_story_path(@group, @story), method: :delete, form: { style: 'display:inline-block;' }, class: "btn btn-danger btn-sm ms-2" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="d-flex justify-content-between border-bottom pb-3 mb-4">
+      <div class="text-muted">
+        <strong>Автор:</strong> <%= @story.user.email %><br>
+        <strong>Добавлено:</strong> <%= @story.created_at.strftime("%d.%m.%Y") %>
+      </div>
+
+      <div class="text-end">
+        <% if @story.story_date.present? %>
+          <span class="badge bg-success mb-2 fs-6">📅 Дата события: <%= @story.story_date.strftime("%d.%m.%Y") %></span><br>
+        <% end %>
+
+        <% if @story.ancestors.any? %>
+          <small class="text-muted"><strong>Упоминаются:</strong></small><br>
+          <% @story.ancestors.each do |person| %>
+            <%= link_to person.full_name, group_ancestor_path(@group, person), class: "badge bg-info text-dark text-decoration-none" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="story-content mb-5" style="white-space: pre-wrap; font-size: 1.15rem; line-height: 1.7;">
+      <%= @story.content %>
+    </div>
+
+    <% if @story.media.attached? %>
+      <div class="bg-light p-4 rounded">
+        <h5 class="mb-3">📎 Прикрепленные материалы:</h5>
+        <div class="row">
+          <% @story.media.each do |file| %>
+            <div class="col-md-4 mb-3">
+              <% if file.image? %>
+                <%= image_tag file, class: "img-fluid rounded shadow-sm", style: "max-height: 250px; object-fit: cover; width: 100%;" %>
+              <% elsif file.video? %>
+                <%= video_tag url_for(file), controls: true, class: "w-100 rounded shadow-sm" %>
+              <% else %>
+                <div class="card bg-white h-100 d-flex justify-content-center align-items-center p-3 text-center shadow-sm">
+                  <i class="fs-1">📄</i>
+                  <%= link_to file.filename, url_for(file), target: "_blank", class: "text-decoration-none mt-2 text-break" %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to "← Вернуться к списку историй", group_stories_path(@group), class: "btn btn-secondary" %>
