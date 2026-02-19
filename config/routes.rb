@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     end
 
     resources :locations
+    resources :events
   end
 
   # статические страницы
