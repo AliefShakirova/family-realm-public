@@ -8,7 +8,7 @@ class UserProfilesController < ApplicationController
   def edit
     @user_profile = current_user.user_profile || current_user.build_user_profile
   end
-
+  
   def update
     @user_profile = current_user.user_profile || current_user.build_user_profile
 
