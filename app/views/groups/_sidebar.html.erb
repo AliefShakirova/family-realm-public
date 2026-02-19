@@ -4,7 +4,7 @@
   <% end %>
 
   <%= link_to group_ancestors_path(@group), class: "list-group-item list-group-item-action #{'active' if request.path.include?('ancestors')}" do %>
-    🌳 Древо / Предки
+    🌳 Древо / Персоны
   <% end %>
 
   <%= link_to group_locations_path(@group), class: "list-group-item list-group-item-action #{'active' if request.path.include?('locations')}" do %>
