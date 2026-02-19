@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_19_104515) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_19_124327) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -145,6 +145,28 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_19_104515) do
     t.index ["relative_id"], name: "index_relationships_on_relative_id"
   end
 
+  create_table "stories", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.date "date"
+    t.bigint "group_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "story_date"
+    t.index ["group_id"], name: "index_stories_on_group_id"
+    t.index ["user_id"], name: "index_stories_on_user_id"
+  end
+
+  create_table "story_ancestors", force: :cascade do |t|
+    t.bigint "story_id", null: false
+    t.bigint "ancestor_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ancestor_id"], name: "index_story_ancestors_on_ancestor_id"
+    t.index ["story_id"], name: "index_story_ancestors_on_story_id"
+  end
+
   create_table "user_profiles", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "first_name"
@@ -191,5 +213,9 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_19_104515) do
   add_foreign_key "relationships", "ancestors"
   add_foreign_key "relationships", "ancestors", column: "relative_id"
   add_foreign_key "relationships", "groups"
+  add_foreign_key "stories", "groups"
+  add_foreign_key "stories", "users"
+  add_foreign_key "story_ancestors", "ancestors"
+  add_foreign_key "story_ancestors", "stories"
   add_foreign_key "user_profiles", "users"
 end
