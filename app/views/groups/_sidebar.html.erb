@@ -15,6 +15,10 @@
     📅 События
   <% end %>
 
+  <%= link_to group_stories_path(@group), class: "list-group-item list-group-item-action #{'active' if request.path.include?('stories')}" do %>
+    📖 Истории
+  <% end %>
+
   <%= link_to members_group_path(@group), class: "list-group-item list-group-item-action #{'active' if current_page?(members_group_path(@group))}" do %>
     👥 Участники и Приглашения
   <% end %>
