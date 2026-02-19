@@ -17,6 +17,9 @@ class Ancestor < ApplicationRecord
            foreign_key: "relative_id",
            dependent: :destroy
 
+  has_many :participations, dependent: :destroy
+  has_many :events, through: :participations
+
   validates :first_name, :last_name, presence: true
 
   #для того чтоб не сохранялось не нужное
