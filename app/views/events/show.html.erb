@@ -1,0 +1,73 @@
+<div class="card shadow-sm mb-4">
+  <div class="card-header bg-white d-flex justify-content-between align-items-center">
+    <h2 class="mb-0"><%= @event.title %></h2>
+    <div>
+      <%= link_to "Редактировать", edit_group_event_path(@group, @event), class: "btn btn-outline-primary btn-sm" %>
+      <%= button_to "Удалить", group_event_path(@group, @event), method: :delete, form: { style: 'display:inline-block;' }, class: "btn btn-danger btn-sm ms-2" %>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-8">
+        <p class="lead"><strong>📅 Дата:</strong> <%= @event.event_date %></p>
+
+        <% if @event.location %>
+          <p class="lead"><strong>📍 Место:</strong> <%= link_to @event.location.name, group_location_path(@group, @event.location), class: "text-decoration-none" %></p>
+        <% elsif @event.location_name.present? %>
+          <p class="lead"><strong>📍 Место:</strong> <%= @event.location_name %></p>
+        <% end %>
+
+        <hr>
+        <h5>Описание</h5>
+        <p style="white-space: pre-wrap;"><%= @event.description.presence || "Нет описания." %></p>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card bg-light">
+          <div class="card-body">
+            <h5 class="card-title">Участники</h5>
+            <% if @event.ancestors.any? %>
+              <ul class="list-unstyled mb-0">
+                <% @event.ancestors.each do |person| %>
+                  <li class="mb-2">
+                    👤 <%= link_to person.full_name, group_ancestor_path(@group, person), class: "text-decoration-none" %>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+              <p class="text-muted small mb-0">Никто не отмечен.</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @event.media.attached? %>
+  <hr>
+  <h5>Медиафайлы и документы:</h5>
+  <div class="row mt-3">
+    <% @event.media.each do |file| %>
+      <div class="col-md-4 mb-3">
+
+        <% if file.image? %>
+          <%= image_tag file, class: "img-fluid rounded shadow-sm", style: "max-height: 200px; object-fit: cover;" %>
+
+        <% elsif file.video? %>
+          <%= video_tag url_for(file), controls: true, class: "w-100 rounded shadow-sm" %>
+
+        <% else %>
+          <div class="card bg-light h-100 d-flex justify-content-center align-items-center p-3 text-center">
+            <i class="fs-1">📄</i>
+            <%= link_to file.filename, url_for(file), target: "_blank", class: "text-decoration-none mt-2", style: "word-break: break-all;" %>
+          </div>
+        <% end %>
+
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<%= link_to "← Назад к хронике", group_events_path(@group), class: "btn btn-secondary" %>

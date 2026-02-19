@@ -1,0 +1,72 @@
+<%= form_with(model: [@group, event], local: true) do |f| %>
+
+  <% if event.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% event.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="mb-3">
+        <%= f.label :title, "Название события (например: Свадьба, Рождение, Переезд)", class: "form-label" %>
+        <%= f.text_field :title, class: "form-control", required: true %>
+      </div>
+
+      <div  class="row">
+        <div class="col-md-6 mb-3">
+          <%= f.label :event_date, "Дата события", class: "form-label" %>
+          <%= f.date_field :event_date, class: "form-control", required: true %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :location_id, "Выбрать место из списка", class: "form-label" %>
+          <%= f.collection_select :location_id, @group.locations, :id, :name, { include_blank: "--- Не выбрано ---" }, class: "form-select" %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :location_name, "ИЛИ впишите город вручную", class: "form-label" %>
+          <%= f.text_field :location_name, class: "form-control", placeholder: "Например: роддом г. Евпатория" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :description, "Описание / Детали", class: "form-label" %>
+          <%= f.text_area :description, rows: 4, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :media, "Прикрепить фото, видео или документы", class: "form-label" %>
+          <%= f.file_field :media, multiple: true, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-light">
+            <h6 class="mb-0">Участники события</h6>
+          </div>
+          <div class="card-body" style="max-height: 300px; overflow-y: auto;">
+            <%= f.collection_check_boxes :ancestor_ids, @group.ancestors, :id, :full_name do |b| %>
+              <div class="form-check">
+                <%= b.check_box class: "form-check-input" %>
+                <%= b.label class: "form-check-label" %>
+              </div>
+              </div>
+            <% end %>
+
+            <% if @group.ancestors.empty? %>
+              <p class="text-muted small">В древе пока нет родственников.</p>
+            <% end %>
+            </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <%= f.submit "Сохранить событие", class: "btn btn-primary" %>
+  <%= link_to "Отмена", group_events_path(@group), class: "btn btn-outline-secondary ms-2" %>
+<% end %>
