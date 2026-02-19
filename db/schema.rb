@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_18_151654) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_19_104515) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,19 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_18_151654) do
     t.index ["group_id"], name: "index_ancestors_on_group_id"
   end
 
+  create_table "events", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.date "event_date"
+    t.bigint "group_id", null: false
+    t.bigint "location_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "location_name"
+    t.index ["group_id"], name: "index_events_on_group_id"
+    t.index ["location_id"], name: "index_events_on_location_id"
+  end
+
   create_table "group_invitations", force: :cascade do |t|
     t.bigint "group_id", null: false
     t.string "email"
@@ -99,6 +112,16 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_18_151654) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_locations_on_group_id"
+  end
+
+  create_table "participations", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "ancestor_id", null: false
+    t.string "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ancestor_id"], name: "index_participations_on_ancestor_id"
+    t.index ["event_id"], name: "index_participations_on_event_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -156,10 +179,14 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_18_151654) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "ancestors", "groups"
+  add_foreign_key "events", "groups"
+  add_foreign_key "events", "locations"
   add_foreign_key "group_invitations", "groups"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
   add_foreign_key "locations", "groups"
+  add_foreign_key "participations", "ancestors"
+  add_foreign_key "participations", "events"
   add_foreign_key "posts", "users"
   add_foreign_key "relationships", "ancestors"
   add_foreign_key "relationships", "ancestors", column: "relative_id"
