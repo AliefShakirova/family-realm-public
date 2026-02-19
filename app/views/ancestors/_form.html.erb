@@ -55,11 +55,35 @@
     <%= f.file_field :documents, multiple: true %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Сохранить изменения" %>
+  <div class="mb-3">
+    <%= f.label :gender, "Пол" %><br>
+    <%= f.select :gender, ["Мужчина", "Женщина", "kobieta", "mężczyzna"], include_blank: "Не указано" %>
   </div>
 
-<% end %> <hr>
+  <div style="margin-top: 15px; padding: 15px; background-color: #f8f9fa; border-radius: 5px; border: 1px solid #e9ecef;">
+    <h5 style="margin-bottom: 15px;">👨‍👩‍👦 Родители (для построения Древа)</h5>
+
+    <div>
+      <%= f.label :father_id, "Отец" %><br>
+      <%= f.collection_select :father_id, Ancestor.where.not(id: f.object.id), :id, :full_name, { include_blank: "Не известен / Не указан" }, { style: "width: 100%; padding: 5px;" } %>
+    </div>
+
+    <div style="margin-top: 15px;">
+      <%= f.label :mother_id, "Мать" %><br>
+      <%= f.collection_select :mother_id, Ancestor.where.not(id: f.object.id), :id, :full_name, { include_blank: "Не известна / Не указана" }, { style: "width: 100%; padding: 5px;" } %>
+    </div>
+  </div>
+
+  <div class="actions mt-4">
+    <%= f.submit "Сохранить", class: "btn btn-primary" %>
+  </div>
+
+<div class="actions">
+  <%= f.submit "Сохранить изменения" %>
+</div>
+
+<% end %>
+<hr>
 
 <% if @ancestor.documents.attached? %>
   <h4>Уже загруженные документы:</h4>
@@ -95,7 +119,7 @@
         }
     }
 
-    document.addEventListener("turbo:load", function() {
+    document.addEventListener("turbo:load", function () {
         toggleFields();
         const checkbox = document.getElementById("alive_checkbox");
         if (checkbox) {

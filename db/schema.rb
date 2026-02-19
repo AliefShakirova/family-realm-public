@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_19_124327) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_19_191613) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,6 +57,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_19_124327) do
     t.string "phone"
     t.string "current_address"
     t.string "death_place"
+    t.integer "father_id"
+    t.integer "mother_id"
     t.index ["group_id"], name: "index_ancestors_on_group_id"
   end
 
