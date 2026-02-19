@@ -13,11 +13,19 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    # Разрешаем эти поля при регистрации (Sign Up)
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
+    # Разрешаем поля для регистрации
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :avatar])
 
-    # Разрешаем эти поля при редактировании профиля (Account Update)
-    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name])
+    devise_parameter_sanitizer.permit(:account_update, keys: [
+      :first_name,
+      :last_name,
+      :patronymic,
+      :maiden_name,
+      :birth_date,
+      :birth_place,
+      :gender,
+      :description
+    ])
   end
 
   private
