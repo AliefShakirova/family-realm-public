@@ -20,6 +20,9 @@ class Ancestor < ApplicationRecord
   has_many :participations, dependent: :destroy
   has_many :events, through: :participations
 
+  has_many :story_ancestors, dependent: :destroy
+  has_many :stories, through: :story_ancestors
+
   validates :first_name, :last_name, presence: true
 
   #для того чтоб не сохранялось не нужное
