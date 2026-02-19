@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   resources :posts
 
   resources :groups do
+    member do
+      get :tree
+    end
 
     post :invite, on: :member
 

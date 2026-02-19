@@ -88,7 +88,10 @@ class GroupsController < ApplicationController
 
   def members
     @group = Group.find(params[:id])
-    # Сюда можно добавить логику, если нужно, но пока хватит поиска группы
+  end
+
+  def tree
+    @group = Group.find(params[:id])
   end
 
   private
