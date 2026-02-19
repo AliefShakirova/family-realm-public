@@ -14,6 +14,8 @@ class Group < ApplicationRecord
 
   has_many :events, dependent: :destroy
 
+  has_many :stories, dependent: :destroy
+
   validates :name, presence: true
   validates :privacy, inclusion: { in: %w(private public) }
 end
