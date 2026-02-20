@@ -13,9 +13,12 @@ Rails.application.routes.draw do
   # посты
   resources :posts
 
+  resources :archives
+
   resources :groups do
     member do
       get :tree
+      post :make_connection
     end
 
     post :invite, on: :member

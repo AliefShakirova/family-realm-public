@@ -7,7 +7,7 @@ class GroupsController < ApplicationController
     @groups = current_user.groups
   end
 
-  #В show проверка доступа к группе
+  # В show проверка доступа к группе
   def show
     @group = Group.find(params[:id])
 
@@ -63,14 +63,12 @@ class GroupsController < ApplicationController
 
     email = params[:email]
 
-    # Проверка: уже участник?
     existing_user = User.find_by(email: email)
     if existing_user && @group.members.include?(existing_user)
       redirect_to @group, alert: "Пользователь уже состоит в группе"
       return
     end
 
-    # Проверка: уже есть pending invite?
     if @group.group_invitations.where(email: email, status: "pending").exists?
       redirect_to @group, alert: "Приглашение уже отправлено"
       return
@@ -92,6 +90,45 @@ class GroupsController < ApplicationController
 
   def tree
     @group = Group.find(params[:id])
+    @ancestors = @group.ancestors
+
+    @chart_data = "graph TD\n"
+
+    # ПРОХОД 1: Сначала создаем все квадратики
+    @ancestors.each do |person|
+      @chart_data += "  Node#{person.id}[\"#{person.full_name}\"]\n"
+    end
+
+    # ПРОХОД 2: Затем рисуем все стрелочки между ними
+    @ancestors.each do |person|
+      if person.father_id.present?
+        @chart_data += "  Node#{person.father_id} --> Node#{person.id}\n"
+      end
+
+      if person.mother_id.present?
+        @chart_data += "  Node#{person.mother_id} --> Node#{person.id}\n"
+      end
+    end
+  end
+
+  def make_connection
+    @group = Group.find(params[:id])
+
+    # Находим ребенка и родителя, которых ты выбрала в списках
+    child = @group.ancestors.find_by(id: params[:child_id])
+    parent = @group.ancestors.find_by(id: params[:parent_id])
+
+    if child && parent
+      # Сохраняем связь в зависимости от того, кого ты выбрала (мать или отца)
+      if params[:role] == 'mother'
+        child.update(mother_id: parent.id)
+      elsif params[:role] == 'father'
+        child.update(father_id: parent.id)
+      end
+    end
+
+    # Перезагружаем страницу Древа, чтобы график перерисовался
+    redirect_to tree_group_path(@group), notice: "Связь успешно создана! Древо обновлено."
   end
 
   private
