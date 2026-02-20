@@ -32,6 +32,8 @@
 
       <span class="p-2 text-dark"><%= link_to "Про нас", about_path %></span> <!-- кнопка link_to -->
 
+      <span class="p-2 text-dark"><%= link_to "Архив", archives_path %></span>
+
       <% if admin? %>
       <span class="p-2 text-dark">
         <%= link_to "Добавление статьи", new_post_path %>

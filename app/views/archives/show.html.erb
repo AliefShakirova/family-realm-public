@@ -1,0 +1,21 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @archive %>
+
+<div class="mt-4">
+  <p>
+    <strong>Прикрепленный документ:</strong>
+    <% if @archive.document.attached? %>
+      <%= link_to "Скачать файл", url_for(@archive.document), target: "_blank", class: "btn btn-sm btn-outline-success" %>
+    <% else %>
+      <span class="text-muted">Файл не прикреплен</span>
+    <% end %>
+  </p>
+</div>
+
+<div>
+  <%= link_to "Edit this archive", edit_archive_path(@archive) %> |
+  <%= link_to "Back to archives", archives_path %>
+
+  <%= button_to "Destroy this archive", @archive, method: :delete %>
+</div>

@@ -1,0 +1,58 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>🗄️ Исторический архив</h2>
+
+    <% if current_user && current_user.admin? %>
+      <%= link_to "+ Добавить документ", new_archive_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <p class="text-muted mb-4">Здесь хранятся старые метрические книги, списки губерний и другие исторические справки.</p>
+
+  <div class="row">
+    <% if @archives.any? %>
+      <% @archives.each do |archive| %>
+        <div class="col-md-6 mb-4">
+          <div class="card shadow-sm h-100 border-0" style="background-color: #f8f9fa;">
+            <div class="card-body">
+              <h5 class="card-title fw-bold"><%= archive.title %></h5>
+
+              <div class="mb-2">
+                <% if archive.gubernia.present? %>
+                  <span class="badge bg-secondary">📍 <%= archive.gubernia %></span>
+                <% end %>
+                <% if archive.year.present? %>
+                  <span class="badge bg-info text-dark">📅 <%= archive.year %> год</span>
+                <% end %>
+              </div>
+
+              <p class="card-text text-muted">
+                <%= truncate(archive.description, length: 120) %>
+              </p>
+            </div>
+
+            <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center pb-3">
+              <%= link_to "Открыть документ", archive, class: "btn btn-sm btn-outline-primary" %>
+
+              <% if current_user && current_user.admin? %>
+                <div class="btn-group">
+                  <%= link_to "✏️", edit_archive_path(archive), class: "btn btn-sm btn-outline-secondary", title: "Редактировать" %>
+                  <%= form_with url: archive_path(archive), method: :delete, class: "d-inline" do |f| %>
+                    <%= f.submit "🗑️", class: "btn btn-sm btn-outline-danger", data: { turbo_confirm: 'Точно удалить документ?' } %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="col-12">
+        <div class="alert alert-light border text-center p-5">
+          <h4 class="text-muted">Архив пока пуст</h4>
+          <p>Скоро здесь появятся исторические документы.</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
