@@ -16,6 +16,8 @@ class Group < ApplicationRecord
 
   has_many :stories, dependent: :destroy
 
+  has_many :timeline_events, dependent: :destroy
+
   validates :name, presence: true
   validates :privacy, inclusion: { in: %w(private public) }
 end

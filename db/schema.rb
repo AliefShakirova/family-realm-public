@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_20_123433) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_20_144447) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -176,6 +176,16 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_20_123433) do
     t.datetime "updated_at", null: false
     t.index ["ancestor_id"], name: "index_story_ancestors_on_ancestor_id"
     t.index ["story_id"], name: "index_story_ancestors_on_story_id"
+  end
+
+  create_table "timeline_events", force: :cascade do |t|
+    t.string "title"
+    t.date "event_date"
+    t.text "description"
+    t.integer "group_id"
+    t.integer "ancestor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_profiles", force: :cascade do |t|

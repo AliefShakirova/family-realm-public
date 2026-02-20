@@ -4,13 +4,12 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations' }
 
-  # профиль текущуего пользователя
   resource :user_profile, only: [:show, :edit, :update]
 
-  # пользователи
+  resources :timeline_events, only: [:edit, :update, :destroy]
+
   resources :users
 
-  # посты
   resources :posts
 
   resources :archives
@@ -19,6 +18,8 @@ Rails.application.routes.draw do
     member do
       get :tree
       post :make_connection
+      get :timeline
+      post :add_timeline_event
     end
 
     post :invite, on: :member
@@ -38,13 +39,11 @@ Rails.application.routes.draw do
     resources :stories
   end
 
-  # статические страницы
   get 'about', to: 'pages#about', as: 'about'
 
   get "invites/:token", to: "group_invitations#show", as: :invite
 
   post "invites/:token/accept", to: "group_invitations#accept", as: :accept_invite
 
-  # отвечает исключительно за основную/главную страницу
   root 'posts#index'
 end

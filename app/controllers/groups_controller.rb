@@ -7,7 +7,6 @@ class GroupsController < ApplicationController
     @groups = current_user.groups
   end
 
-  # В show проверка доступа к группе
   def show
     @group = Group.find(params[:id])
 
@@ -94,12 +93,10 @@ class GroupsController < ApplicationController
 
     @chart_data = "graph TD\n"
 
-    # ПРОХОД 1: Сначала создаем все квадратики
     @ancestors.each do |person|
       @chart_data += "  Node#{person.id}[\"#{person.full_name}\"]\n"
     end
 
-    # ПРОХОД 2: Затем рисуем все стрелочки между ними
     @ancestors.each do |person|
       if person.father_id.present?
         @chart_data += "  Node#{person.father_id} --> Node#{person.id}\n"
@@ -114,12 +111,10 @@ class GroupsController < ApplicationController
   def make_connection
     @group = Group.find(params[:id])
 
-    # Находим ребенка и родителя, которых ты выбрала в списках
     child = @group.ancestors.find_by(id: params[:child_id])
     parent = @group.ancestors.find_by(id: params[:parent_id])
 
     if child && parent
-      # Сохраняем связь в зависимости от того, кого ты выбрала (мать или отца)
       if params[:role] == 'mother'
         child.update(mother_id: parent.id)
       elsif params[:role] == 'father'
@@ -127,8 +122,53 @@ class GroupsController < ApplicationController
       end
     end
 
-    # Перезагружаем страницу Древа, чтобы график перерисовался
     redirect_to tree_group_path(@group), notice: "Связь успешно создана! Древо обновлено."
+  end
+
+  def timeline
+    @group = Group.find(params[:id])
+    @ancestors = @group.ancestors
+
+    events = @group.timeline_events.to_a
+
+    @ancestors.each do |person|
+      if person.birth_date.present?
+        events << TimelineEvent.new(
+          event_date: person.birth_date,
+          title: "🌟 Рождение",
+          description: "Появление на свет: #{person.full_name}",
+          ancestor_id: person.id
+        )
+      end
+
+      if person.respond_to?(:death_date) && person.death_date.present?
+        events << TimelineEvent.new(
+          event_date: person.death_date,
+          title: "🕊️ Смерть",
+          description: "Скончался(ась): #{person.full_name}",
+          ancestor_id: person.id
+        )
+      end
+    end
+
+    @timeline_events = events.sort_by { |e| e.event_date || Date.today }
+  end
+
+  def add_timeline_event
+    @group = Group.find(params[:id])
+
+    @event = @group.timeline_events.build(
+      title: params[:title],
+      event_date: params[:event_date],
+      description: params[:description],
+      ancestor_id: params[:ancestor_id]
+    )
+
+    if @event.save
+      redirect_to timeline_group_path(@group), notice: "Событие успешно добавлено на ось времени!"
+    else
+      redirect_to timeline_group_path(@group), alert: "Ошибка: проверьте правильность заполнения полей (название и дата обязательны)."
+    end
   end
 
   private
