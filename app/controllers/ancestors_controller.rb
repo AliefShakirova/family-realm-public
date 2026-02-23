@@ -72,11 +72,12 @@ class AncestorsController < ApplicationController
     @ancestor = @group.ancestors.find(params[:id])
   end
 
-  def ancestor_paramsa
+  def ancestor_params
     params.require(:ancestor).permit(
       :first_name,
       :last_name,
       :middle_name,
+      :avatar,
       :birth_date,
       :alive,
       :phone,

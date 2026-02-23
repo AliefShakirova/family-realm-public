@@ -3,6 +3,8 @@ class Ancestor < ApplicationRecord
   belongs_to :father, class_name: 'Ancestor', optional: true
   belongs_to :mother, class_name: 'Ancestor', optional: true
 
+  has_one_attached :avatar
+
   has_one_attached :photo
   has_many_attached :documents
 
