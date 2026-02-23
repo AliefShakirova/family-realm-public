@@ -1,129 +1,118 @@
-<%= form_with model: [@group, @ancestor], local: true do |f| %>
+<div class="card shadow-sm border-0" style="border-radius: 16px;">
+  <div class="card-body p-4 p-md-5">
 
-  <%= f.label :first_name, "Имя" %>
-  <%= f.text_field :first_name %>
+    <%= form_with(model: [@group, @ancestor], local: true) do |f| %>
 
-  <%= f.label :last_name, "Фамилия" %>
-  <%= f.text_field :last_name %>
+      <h5 class="fw-bold mb-3 text-primary"><i class="fa-regular fa-id-card me-2"></i> Основная информация</h5>
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <%= f.label :last_name, "Фамилия", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.text_field :last_name, class: "form-control" %>
+        </div>
+        <div class="col-md-4">
+          <%= f.label :first_name, "Имя", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.text_field :first_name, class: "form-control" %>
+        </div>
+        <div class="col-md-4">
+          <%= f.label :middle_name, "Отчество", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.text_field :middle_name, class: "form-control" %>
+        </div>
 
-  <%= f.label :middle_name, "Отчество" %>
-  <%= f.text_field :middle_name %>
-
-  <%= f.label :birth_date, "Дата рождения" %>
-  <%= f.date_field :birth_date %>
-
-  <%= f.label :birth_place, "Место рождения" %>
-  <%= f.text_field :birth_place %>
-
-  <hr>
-
-  <div>
-    <%= f.check_box :alive, id: "alive_checkbox" %>
-    <%= f.label :alive, "Персона жив(а)" %>
-  </div>
-
-  <hr>
-
-  <div id="alive_fields">
-    <h4>Если жив</h4>
-    <%= f.label :phone, "Телефон" %>
-    <%= f.text_field :phone %>
-
-    <%= f.label :current_address, "Адрес проживания" %>
-    <%= f.text_field :current_address %>
-  </div>
-
-  <div id="dead_fields">
-    <h4>Если умер</h4>
-    <%= f.label :death_date, "Дата смерти" %>
-    <%= f.date_field :death_date %>
-
-    <%= f.label :death_place, "Место смерти" %>
-    <%= f.text_field :death_place %>
-  </div>
-
-  <hr>
-
-  <%= f.label :description, "Описание" %>
-  <%= f.text_area :description %>
-
-  <%= f.label :photo, "Фото (аватар)" %>
-  <%= f.file_field :photo %>
-
-  <div class="field">
-    <%= f.label :documents, "Загрузить новые документы" %>
-    <%= f.file_field :documents, multiple: true %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :gender, "Пол" %><br>
-    <%= f.select :gender, ["Мужчина", "Женщина", "kobieta", "mężczyzna"], include_blank: "Не указано" %>
-  </div>
-
-  <div style="margin-top: 15px; padding: 15px; background-color: #f8f9fa; border-radius: 5px; border: 1px solid #e9ecef;">
-    <h5 style="margin-bottom: 15px;">👨‍👩‍👦 Родители (для построения Древа)</h5>
-
-    <div>
-      <%= f.label :father_id, "Отец" %><br>
-      <%= f.collection_select :father_id, Ancestor.where.not(id: f.object.id), :id, :full_name, { include_blank: "Не известен / Не указан" }, { style: "width: 100%; padding: 5px;" } %>
-    </div>
-
-    <div style="margin-top: 15px;">
-      <%= f.label :mother_id, "Мать" %><br>
-      <%= f.collection_select :mother_id, Ancestor.where.not(id: f.object.id), :id, :full_name, { include_blank: "Не известна / Не указана" }, { style: "width: 100%; padding: 5px;" } %>
-    </div>
-  </div>
-
-  <div class="actions mt-4">
-    <%= f.submit "Сохранить", class: "btn btn-primary" %>
-  </div>
-
-<div class="actions">
-  <%= f.submit "Сохранить изменения" %>
-</div>
-
-<% end %>
-<hr>
-
-<% if @ancestor.documents.attached? %>
-  <h4>Уже загруженные документы:</h4>
-  <div class="existing-documents">
-    <% @ancestor.documents.each do |document| %>
-      <div class="attachment" style="margin-bottom: 10px; border-bottom: 1px solid #eee; padding: 5px;">
-        <%= link_to document.filename, rails_blob_path(document, disposition: "attachment"), target: "_blank" %>
-
-        <%= button_to "Удалить файл",
-                      purge_document_group_ancestor_path(@group, @ancestor, attachment_id: document.id),
-                      method: :delete,
-                      class: "btn btn-sm btn-danger",
-                      style: "display: inline-block; margin-left: 10px;",
-                      form: { style: 'display:inline-block;' }
-        %>
+        <div class="col-md-4">
+          <%= f.label :birth_date, "Дата рождения", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.date_field :birth_date, class: "form-control" %>
+        </div>
+        <div class="col-md-4">
+          <%= f.label :birth_place, "Место рождения", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.text_field :birth_place, class: "form-control" %>
+        </div>
+        <div class="col-md-4">
+          <%= f.label :gender, "Пол", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.select :gender, ["Мужчина", "Женщина"], { include_blank: "Не указано" }, { class: "form-select" } %>
+        </div>
       </div>
+
+      <hr class="text-muted mb-4">
+
+      <div class="d-flex align-items-center mb-3">
+        <h5 class="fw-bold mb-0 text-primary"><i class="fa-solid fa-heart-pulse me-2"></i> Статус и контакты</h5>
+        <div class="form-check form-switch ms-4 mt-1">
+          <%= f.check_box :alive, class: "form-check-input", role: "switch", id: "aliveSwitch" %>
+          <%= f.label :alive, "Персона жив(а)", class: "form-check-label fw-bold", for: "aliveSwitch" %>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-md-6">
+          <div class="p-3 bg-light rounded-3 h-100">
+            <h6 class="fw-bold text-success mb-3"><i class="fa-solid fa-leaf me-1"></i> Если жив:</h6>
+            <div class="mb-2">
+              <%= f.label :phone, "Телефон", class: "form-label fw-medium text-muted small mb-1" %>
+              <%= f.text_field :phone, class: "form-control bg-white" %>
+            </div>
+            <div>
+              <%= f.label :current_address, "Адрес проживания", class: "form-label fw-medium text-muted small mb-1" %>
+              <%= f.text_field :current_address, class: "form-control bg-white" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="p-3 bg-light rounded-3 h-100">
+            <h6 class="fw-bold text-secondary mb-3"><i class="fa-solid fa-cross me-1"></i> Если умер:</h6>
+            <div class="mb-2">
+              <%= f.label :death_date, "Дата смерти", class: "form-label fw-medium text-muted small mb-1" %>
+              <%= f.date_field :death_date, class: "form-control bg-white" %>
+            </div>
+            <div>
+              <%= f.label :death_place, "Место смерти", class: "form-label fw-medium text-muted small mb-1" %>
+              <%= f.text_field :death_place, class: "form-control bg-white" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="text-muted mb-4">
+
+      <h5 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-folder-open me-2"></i> Дополнительно</h5>
+      <div class="row g-3 mb-4">
+        <div class="col-12">
+          <%= f.label :description, "Описание / Биография", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.text_area :description, rows: 3, class: "form-control", placeholder: "Напишите краткую историю жизни..." %>
+        </div>
+
+        <div class="col-md-6">
+          <%= f.label :avatar, "Фото (аватар)", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.file_field :avatar, class: "form-control" %>
+        </div>
+        <div class="col-md-6">
+          <%= f.label :documents, "Загрузить новые документы", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.file_field :documents, multiple: true, class: "form-control" %>
+        </div>
+      </div>
+
+      <hr class="text-muted mb-4">
+
+      <div class="p-3 bg-light rounded-3 border mb-4">
+        <h5 class="fw-bold mb-3"><i class="fa-solid fa-people-arrows me-2"></i> Родители (для построения Древа)</h5>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <%= f.label :mother_id, "Мать", class: "form-label fw-medium text-muted small mb-1" %>
+            <%= f.select :mother_id, options_from_collection_for_select(@group.ancestors, :id, :full_name, @ancestor.mother_id), { prompt: "Выберите мать..." }, { class: "form-select bg-white" } %>
+          </div>
+          <div class="col-md-6">
+            <%= f.label :father_id, "Отец", class: "form-label fw-medium text-muted small mb-1" %>
+            <%= f.select :father_id, options_from_collection_for_select(@group.ancestors, :id, :full_name, @ancestor.father_id), { prompt: "Выберите отца..." }, { class: "form-select bg-white" } %>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2 mt-4">
+        <%= link_to "Отмена", group_ancestors_path(@group), class: "btn btn-light" %>
+        <%= f.submit "Сохранить персону", class: "btn btn-primary px-4 fw-bold" %>
+      </div>
+
     <% end %>
+
   </div>
-<% end %>
-
-<script>
-    function toggleFields() {
-        const checkbox = document.getElementById("alive_checkbox");
-        if (!checkbox) return;
-
-        const alive = checkbox.checked;
-        const aliveFields = document.getElementById("alive_fields");
-        const deadFields = document.getElementById("dead_fields");
-
-        if (aliveFields && deadFields) {
-            aliveFields.style.display = alive ? "block" : "none";
-            deadFields.style.display = alive ? "none" : "block";
-        }
-    }
-
-    document.addEventListener("turbo:load", function () {
-        toggleFields();
-        const checkbox = document.getElementById("alive_checkbox");
-        if (checkbox) {
-            checkbox.addEventListener("change", toggleFields);
-        }
-    });
-</script>
+</div>

@@ -2,8 +2,19 @@
 
 <% @posts.each do |post| %>
   <div class="alert alert-light mb-4 shadow-sm">
-  <h3><%= post.title %></h3>
-  <p><%= post.body %></p>
+    <h3><%= post.title %></h3>
+    <p><%= post.body %></p>
+
+    <% if post.attachment.attached? %>
+      <div class="my-4 text-center">
+        <% if post.attachment.content_type.start_with?('image/') %>
+          <%= image_tag post.attachment, class: "img-fluid rounded shadow-sm", style: "max-height: 400px; object-fit: cover;" %>
+        <% else %>
+          <%= link_to "📎 Открыть прикрепленный документ", url_for(post.attachment), target: "_blank", class: "btn btn-outline-secondary btn-sm" %>
+        <% end %>
+      </div>
+    <% end %>
+
     <%= link_to "Читать далее", post_path(post), :class => 'btn btn-outline-primary'%>
   </div>
 <% end %>

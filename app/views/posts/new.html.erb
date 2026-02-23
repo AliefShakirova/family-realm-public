@@ -1,6 +1,6 @@
 <h2>добавление нового поста</h2>
-  <!--После создания модели, и выполнения миграции, и добавления в контроллер новых методов, создать html файл
-  чтоб вывести на экран форму для заполнения нового поста -->
+<!--После создания модели, и выполнения миграции, и добавления в контроллер новых методов, создать html файл
+чтоб вывести на экран форму для заполнения нового поста -->
 
 <%= form_for :post, url: posts_path do |f| %>
   <% if @post.errors.any? %>
@@ -10,13 +10,17 @@
   <% end %>
   <p>
     Название<br>
-    <%= f.text_field(:title, {class: 'form-control'}) %>
+    <%= f.text_field(:title, { class: 'form-control' }) %>
   </p>
   <p>
     Текст статьи<br>
-    <%= f.text_area(:body, {class: 'form-control'}) %>
+    <%= f.text_area(:body, { class: 'form-control' }) %>
   </p>
   <p>
-    <%= f.submit({class: 'btn btn-success'}) %>
+    <%= f.submit({ class: 'btn btn-success' }) %>
   </p>
+  <div class="mb-4">
+    <%= f.label :attachment, "📷 Прикрепить фото или документ", class: "form-label fw-bold" %>
+    <%= f.file_field :attachment, class: "form-control" %>
+  </div>
 <% end %>

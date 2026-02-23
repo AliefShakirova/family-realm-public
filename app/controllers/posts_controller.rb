@@ -71,7 +71,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body, :post_data)
+    params.require(:post).permit(:title, :body, :post_data, :attachment)
   end
 
   def authorize_admin!
@@ -80,31 +80,3 @@ class PostsController < ApplicationController
     redirect_to root_path, alert: "Dostep zabroniony"
   end
 end
-
-
-
-=begin
-  def create
-    # Создание метода create, взять переменную экземпляра после @, для создания нового поста, сделать
-    # приватный метод post_params с параметрами поста отдельно, и вписать метод при создании поста.
-    # Далее сохранение поста, и возвращение на сам сохраненный пост
-
-    # render plain: params[:post].inspect
-
-    @post = Post.new(post_params)
-
-    # проверка валидации если неправильное введение данных для поста
-    if @post.save
-      redirect_to @post
-    else
-      render 'new'
-    end
-  end
-
-  private
-
-  def post_params
-    # параметры для метода post
-    params.require(:post).permit(:title, :body)
-  end
-=end

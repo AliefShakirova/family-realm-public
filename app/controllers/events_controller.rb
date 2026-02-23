@@ -11,7 +11,10 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = @group.events.build
+    @event = Event.new
+    @group = Group.find(params[:group_id])
+
+    @ancestors = @group.ancestors
   end
 
   def edit

@@ -48,8 +48,11 @@ class GroupsController < ApplicationController
 
   def destroy
     @group = Group.find(params[:id])
+
+    GroupMember.where(group_id: @group.id).delete_all
+
     @group.destroy
-    redirect_to groups_path, notice: "Группа удалена"
+    redirect_to groups_path, notice: "Группа успешно удалена."
   end
 
   def invite

@@ -13,3 +13,54 @@
  *= require_tree .
  *= require_self
  */
+
+/* --- СОВРЕМЕННЫЙ ДИЗАЙН --- */
+
+/* 1. Меняем шрифт всего сайта и цвет фона на приятный светло-серый */
+body {
+    font-family: 'Inter', sans-serif !important;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* 2. Делаем карточки "парящими" и скругляем углы */
+.card {
+    border: none !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+/* Эффект: при наведении мышки карточка чуть приподнимается */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+}
+
+/* 3. Скругляем кнопки и делаем их приятнее */
+.btn {
+    border-radius: 10px !important;
+    font-weight: 500 !important;
+    padding: 8px 20px;
+    transition: all 0.2s;
+}
+
+/* 4. Красивое верхнее меню (Navbar) */
+.navbar, .border-bottom {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px); /* Эффект матового стекла */
+    border-bottom: none !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03) !important;
+}
+
+/* 5. Делаем поля ввода (инпуты) красивее */
+.form-control, .form-select {
+    border-radius: 10px !important;
+    border: 1px solid #e0e0e0;
+    padding: 10px 15px;
+}
+.form-control:focus, .form-select:focus {
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15) !important;
+    border-color: #0d6efd;
+}
