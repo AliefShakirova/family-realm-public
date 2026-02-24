@@ -40,6 +40,25 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :cloudinary
 
+
+  # Говорим серверу использовать SMTP
+  config.action_mailer.delivery_method = :smtp
+
+  # Настройки для Gmail
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'gmail.com',
+    user_name:            ENV['SMTP_USERNAME'],
+    password:             ENV['SMTP_PASSWORD'],
+    authentication:       'plain',
+    enable_starttls_auto: true
+  }
+
+  # Указываем ссылку на твой сайт (чтобы в письмах формировались правильные ссылки)
+  # ЗАМЕНИ 'твое-название.onrender.com' НА СВОЮ РЕАЛЬНУЮ ССЫЛКУ!
+  config.action_mailer.default_url_options = { host: 'твое-название.onrender.com', protocol: 'https' }
+
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
