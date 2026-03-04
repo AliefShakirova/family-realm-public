@@ -9,7 +9,7 @@ class RelationshipsController < ApplicationController
 
   def create
     @relationship = @ancestor.active_relationships.build(relationship_params)
-    @relationship.group = @group # Привязываем к той же группе
+    @relationship.group = @group
 
     if @relationship.save
       redirect_to group_ancestor_path(@group, @ancestor), notice: "Связь добавлена!"

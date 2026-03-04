@@ -2,25 +2,20 @@ class ArchivesController < ApplicationController
   before_action :set_archive, only: %i[ show edit update destroy ]
   before_action :check_admin, except: %i[ index show]
 
-  # GET /archives or /archives.json
   def index
     @archives = Archive.all
   end
 
-  # GET /archives/1 or /archives/1.json
   def show
   end
 
-  # GET /archives/new
   def new
     @archive = Archive.new
   end
 
-  # GET /archives/1/edit
   def edit
   end
 
-  # POST /archives or /archives.json
   def create
     @archive = Archive.new(archive_params)
 
@@ -35,7 +30,6 @@ class ArchivesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /archives/1 or /archives/1.json
   def update
     respond_to do |format|
       if @archive.update(archive_params)
@@ -48,7 +42,6 @@ class ArchivesController < ApplicationController
     end
   end
 
-  # DELETE /archives/1 or /archives/1.json
   def destroy
     @archive.destroy!
 

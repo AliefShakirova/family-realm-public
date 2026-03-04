@@ -4,9 +4,6 @@ class UserPolicy < ApplicationPolicy
   # In most cases the behavior will be identical, but if updating existing
   # code, beware of possible changes to the ancestors:
   # https://gist.github.com/Burgestrand/4b4bc22f31c8a95c425fc0e30d7ef1f5
-
-  # отвечает за логику авторизации
-
   attr_reader :user, :record
 
   def initialize(user, record)
@@ -14,12 +11,10 @@ class UserPolicy < ApplicationPolicy
     @record = record
   end
 
-  # Здесь дается разрешение любому пользователю( даже не вошедшему в систему) доступ к просмотру страницы
   def index?
     true
   end
 
-  # Здесь доступ к этому действию получат только вошедшие в систему пользователи, чьи аккаунты были созданы сегодня и когда значение ключа show в хеше record равно true.
   def show?
     user&.created_at&.today? && record[:show] == true
   end

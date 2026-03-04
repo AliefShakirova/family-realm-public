@@ -1,31 +1,20 @@
 class PostsController < ApplicationController
-  # автоматическая проверка залогирован ли пользователь с помощью devise
   before_action :authenticate_user!, except: [:index, :show]
-  # фильтр before_action перед выполнением действий show... вызывается метод set_post
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :authorize_admin!, only: [:new, :create, :edit, :update, :destroy]
 
-
-  # include Pundit::Authorization
-
   def index
-    # Все статьи на главной странице
     @posts = Post.all
   end
 
   def new
-    # Метод new для создания posts/new формы для создания новых постов
     @post = current_user.posts.new
-    #authorize @post if defined?(Pundit)
   end
 
   def show
-    # Создание метода show для того чтобы после заполнения формы поста, вернулось и показать сам созданный пост
-    #authorize @post if defined?(Pundit)
   end
 
   def edit
-    #authorize @post
   end
 
   def update
@@ -44,13 +33,9 @@ class PostsController < ApplicationController
   end
 
   def create
-    # если все проверки пройдены то пост будет создан, связанный с текущим пользователем
     @post = current_user.posts.new(post_params)
-    # проверка на право создавать посты, если вошел в систему
     authorize @post
-    # проверка пользователя на авторизацию, если не вошел в систему перенаправляется на страницу входа
 
-    # respond_to позволяет контроллеру отвечать по разному, в зависимости от типа запроса
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post został pomyślnie utworzony' } # обычный переход в браузере

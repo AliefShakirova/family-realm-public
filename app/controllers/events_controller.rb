@@ -3,7 +3,6 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   def index
-    # Сортируем события по дате (от старых к новым)
     @events = @group.events.order(event_date: :asc)
   end
 
@@ -54,7 +53,6 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    # ancestor_ids: [] позволяет передавать список выбранных людей
     params.require(:event).permit(:title, :description, :event_date, :location_id, :location_name, ancestor_ids: [], media: [])
   end
 end

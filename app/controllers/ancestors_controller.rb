@@ -18,7 +18,7 @@ class AncestorsController < ApplicationController
     @ancestor = @group.ancestors.build(ancestor_params)
 
     if @ancestor.save
-      # attach новые документы, если есть
+
       @ancestor.documents.attach(params[:ancestor][:documents]) if params[:ancestor][:documents].present?
 
       redirect_to [@group, @ancestor], notice: "Предок создан"
@@ -32,7 +32,6 @@ class AncestorsController < ApplicationController
 
   def update
     if @ancestor.update(ancestor_params.except(:documents))
-      # attach новые документы, не удаляя старые
       @ancestor.documents.attach(params[:ancestor][:documents]) if params[:ancestor][:documents].present?
 
       redirect_to [@group, @ancestor], notice: "Предок обновлён"
@@ -47,18 +46,13 @@ class AncestorsController < ApplicationController
   end
 
   def purge_document
-    # 1. Ищем группу и предка (благодаря before_action это может быть не нужно,
-    # но для надежности оставим поиск)
     @group = Group.find(params[:group_id])
     @ancestor = @group.ancestors.find(params[:id])
 
-    # 2. Ищем конкретный файл по attachment_id (так мы назвали его во View)
     @document = @ancestor.documents.find(params[:attachment_id])
 
-    # 3. Удаляем
     @document.purge
 
-    # 4. Возвращаем назад
     redirect_to edit_group_ancestor_path(@group, @ancestor), notice: "Документ удален."
   end
 

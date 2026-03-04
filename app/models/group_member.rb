@@ -2,7 +2,6 @@ class GroupMember < ApplicationRecord
   belongs_to :group
   belongs_to :user
 
-  # 1. Связь с промежуточной таблицей
   has_many :group_members, dependent: :destroy
 
   has_many :users, through: :group_members

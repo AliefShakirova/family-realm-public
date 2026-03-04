@@ -2,7 +2,6 @@ class Event < ApplicationRecord
   belongs_to :group
   belongs_to :location, optional: true
 
-  # Связь с участниками
   has_many :participations, dependent: :destroy
   has_many :ancestors, through: :participations
 

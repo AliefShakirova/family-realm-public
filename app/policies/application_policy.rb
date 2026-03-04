@@ -2,8 +2,6 @@
 
 class ApplicationPolicy
 
-  # record - объект, к которому проверяется доступ,  данном случаем к пользователю
-
   attr_reader :user, :record
 
   def initialize(user, record)

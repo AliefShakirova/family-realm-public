@@ -1,3 +1,3 @@
 class UserProfile < ApplicationRecord
-  belongs_to :user #профиль принадлежит пользователю
+  belongs_to :user
 end
