@@ -1,6 +1,4 @@
-<h2>Редактирование поста</h2>
-<!--После создания модели, и выполнения миграции, и добавления в контроллер новых методов, создать html файл
-чтоб вывести на экран форму для заполнения нового поста -->
+<h2>Edytowanie postu</h2>
 
 <%= form_for :post, url: post_path(@post), method: :patch do |f| %>
   <% if @post.errors.any? %>
@@ -9,11 +7,11 @@
     <% end %>
   <% end %>
   <p>
-    Название<br>
+    Nazwa<br>
     <%= f.text_field(:title, {:class => 'form-control'}) %>
   </p>
   <p>
-    Текст статьи<br>
+    Tekst artykułu<br>
     <%= f.text_area(:body, {:class => 'form-control'}) %>
   </p>
   <p>

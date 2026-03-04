@@ -2,10 +2,10 @@
   <div>
     <strong>
       <% case relationship.relation_type
-         when 'father' %> Отец
-      <% when 'mother' %> Мать
-      <% when 'spouse' %> Супруг(а)
-      <% when 'child' %> Ребенок
+         when 'father' %> Ojciec
+      <% when 'mother' %> Matka
+      <% when 'spouse' %> Małżonek/małżonka
+      <% when 'child' %> Dziecko
         <% else %><%= relationship.relation_type %>
       <% end %>:
     </strong>
@@ -13,7 +13,7 @@
     <%= link_to relationship.relative.first_name, group_ancestor_path(group, relationship.relative) %>
   </div>
 
-  <%= button_to "Удалить",
+  <%= button_to "Usuń",
                 group_ancestor_relationship_path(group, ancestor, relationship),
                 method: :delete,
                 class: "btn btn-sm btn-outline-danger",

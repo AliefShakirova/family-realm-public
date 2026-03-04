@@ -6,7 +6,7 @@
   <div class="col-md-9">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h2>Мои группы</h2>
-      <%= link_to "Новая группа", new_group_path, class: "btn btn-success btn-sm" %>
+      <%= link_to "Nowa grupa", new_group_path, class: "btn btn-success btn-sm" %>
     </div>
 
     <% if @groups.any? %>
@@ -17,7 +17,7 @@
               <div class="card-body">
                 <h5 class="card-title"><%= group.name %></h5>
                 <p class="card-text text-truncate"><%= group.description %></p>
-                <%= link_to "Открыть архив", group_path(group), class: "btn btn-outline-primary stretched-link" %>
+                <%= link_to "Otwórz archiwum", group_path(group), class: "btn btn-outline-primary stretched-link" %>
               </div>
             </div>
           </div>
@@ -25,7 +25,7 @@
       </div>
     <% else %>
       <div class="alert alert-info">
-        Вы еще не состоите ни в одной семейной группе. Создайте свою!
+        Nie należysz jeszcze do żadnej grupy rodzinnej. Utwórz własną!
       </div>
     <% end %>
   </div>

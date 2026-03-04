@@ -3,32 +3,32 @@
 
     <%= form_with(model: [@group, @ancestor], local: true) do |f| %>
 
-      <h5 class="fw-bold mb-3 text-primary"><i class="fa-regular fa-id-card me-2"></i> Основная информация</h5>
+      <h5 class="fw-bold mb-3 text-primary"><i class="fa-regular fa-id-card me-2"></i> Informacja ogólna</h5>
       <div class="row g-3 mb-4">
         <div class="col-md-4">
-          <%= f.label :last_name, "Фамилия", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.label :last_name, "Nazwisko", class: "form-label fw-medium text-muted small mb-1" %>
           <%= f.text_field :last_name, class: "form-control" %>
         </div>
         <div class="col-md-4">
-          <%= f.label :first_name, "Имя", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.label :first_name, "Imię", class: "form-label fw-medium text-muted small mb-1" %>
           <%= f.text_field :first_name, class: "form-control" %>
         </div>
         <div class="col-md-4">
-          <%= f.label :middle_name, "Отчество", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.label :middle_name, "Imię ojca", class: "form-label fw-medium text-muted small mb-1" %>
           <%= f.text_field :middle_name, class: "form-control" %>
         </div>
 
         <div class="col-md-4">
-          <%= f.label :birth_date, "Дата рождения", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.label :birth_date, "Data urodzenia", class: "form-label fw-medium text-muted small mb-1" %>
           <%= f.date_field :birth_date, class: "form-control" %>
         </div>
         <div class="col-md-4">
-          <%= f.label :birth_place, "Место рождения", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.label :birth_place, "Miejsce urodzenia", class: "form-label fw-medium text-muted small mb-1" %>
           <%= f.text_field :birth_place, class: "form-control" %>
         </div>
         <div class="col-md-4">
-          <%= f.label :gender, "Пол", class: "form-label fw-medium text-muted small mb-1" %>
-          <%= f.select :gender, ["Мужчина", "Женщина"], { include_blank: "Не указано" }, { class: "form-select" } %>
+          <%= f.label :gender, "Płec", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.select :gender, ["Mężczyzna", "Kobieta"], { include_blank: "Nie podano" }, { class: "form-select" } %>
         </div>
       </div>
 
@@ -38,7 +38,7 @@
         <h5 class="fw-bold mb-0 text-primary"><i class="fa-solid fa-heart-pulse me-2"></i> Статус и контакты</h5>
         <div class="form-check form-switch ms-4 mt-1">
           <%= f.check_box :alive, class: "form-check-input", role: "switch", id: "aliveSwitch" %>
-          <%= f.label :alive, "Персона жив(а)", class: "form-check-label fw-bold", for: "aliveSwitch" %>
+          <%= f.label :alive, "Osoba zyje", class: "form-check-label fw-bold", for: "aliveSwitch" %>
         </div>
       </div>
 
@@ -47,11 +47,11 @@
           <div class="p-3 bg-light rounded-3 h-100">
             <h6 class="fw-bold text-success mb-3"><i class="fa-solid fa-leaf me-1"></i> Если жив:</h6>
             <div class="mb-2">
-              <%= f.label :phone, "Телефон", class: "form-label fw-medium text-muted small mb-1" %>
+              <%= f.label :phone, "Numer telefonu", class: "form-label fw-medium text-muted small mb-1" %>
               <%= f.text_field :phone, class: "form-control bg-white" %>
             </div>
             <div>
-              <%= f.label :current_address, "Адрес проживания", class: "form-label fw-medium text-muted small mb-1" %>
+              <%= f.label :current_address, "Adres zamieszkania", class: "form-label fw-medium text-muted small mb-1" %>
               <%= f.text_field :current_address, class: "form-control bg-white" %>
             </div>
           </div>
@@ -61,11 +61,11 @@
           <div class="p-3 bg-light rounded-3 h-100">
             <h6 class="fw-bold text-secondary mb-3"><i class="fa-solid fa-cross me-1"></i> Если умер:</h6>
             <div class="mb-2">
-              <%= f.label :death_date, "Дата смерти", class: "form-label fw-medium text-muted small mb-1" %>
+              <%= f.label :death_date, "Data śmierci", class: "form-label fw-medium text-muted small mb-1" %>
               <%= f.date_field :death_date, class: "form-control bg-white" %>
             </div>
             <div>
-              <%= f.label :death_place, "Место смерти", class: "form-label fw-medium text-muted small mb-1" %>
+              <%= f.label :death_place, "Miejsce śmierci", class: "form-label fw-medium text-muted small mb-1" %>
               <%= f.text_field :death_place, class: "form-control bg-white" %>
             </div>
           </div>
@@ -74,19 +74,19 @@
 
       <hr class="text-muted mb-4">
 
-      <h5 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-folder-open me-2"></i> Дополнительно</h5>
+      <h5 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-folder-open me-2"></i> Dodatkowo</h5>
       <div class="row g-3 mb-4">
         <div class="col-12">
-          <%= f.label :description, "Описание / Биография", class: "form-label fw-medium text-muted small mb-1" %>
-          <%= f.text_area :description, rows: 3, class: "form-control", placeholder: "Напишите краткую историю жизни..." %>
+          <%= f.label :description, "Opis / Biografia", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.text_area :description, rows: 3, class: "form-control", placeholder: "Napisz krótką historię życia..." %>
         </div>
 
         <div class="col-md-6">
-          <%= f.label :avatar, "Фото (аватар)", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.label :avatar, "Zdjęcie", class: "form-label fw-medium text-muted small mb-1" %>
           <%= f.file_field :avatar, class: "form-control" %>
         </div>
         <div class="col-md-6">
-          <%= f.label :documents, "Загрузить новые документы", class: "form-label fw-medium text-muted small mb-1" %>
+          <%= f.label :documents, "Załaduj nowe dokumenty", class: "form-label fw-medium text-muted small mb-1" %>
           <%= f.file_field :documents, multiple: true, class: "form-control" %>
         </div>
       </div>
@@ -94,22 +94,22 @@
       <hr class="text-muted mb-4">
 
       <div class="p-3 bg-light rounded-3 border mb-4">
-        <h5 class="fw-bold mb-3"><i class="fa-solid fa-people-arrows me-2"></i> Родители (для построения Древа)</h5>
+        <h5 class="fw-bold mb-3"><i class="fa-solid fa-people-arrows me-2"></i> Rodzice (do budowy Drzewa)</h5>
         <div class="row g-3">
           <div class="col-md-6">
-            <%= f.label :mother_id, "Мать", class: "form-label fw-medium text-muted small mb-1" %>
-            <%= f.select :mother_id, options_from_collection_for_select(@group.ancestors, :id, :full_name, @ancestor.mother_id), { prompt: "Выберите мать..." }, { class: "form-select bg-white" } %>
+            <%= f.label :mother_id, "Matka", class: "form-label fw-medium text-muted small mb-1" %>
+            <%= f.select :mother_id, options_from_collection_for_select(@group.ancestors, :id, :full_name, @ancestor.mother_id), { prompt: "Wyberz matkę..." }, { class: "form-select bg-white" } %>
           </div>
           <div class="col-md-6">
-            <%= f.label :father_id, "Отец", class: "form-label fw-medium text-muted small mb-1" %>
-            <%= f.select :father_id, options_from_collection_for_select(@group.ancestors, :id, :full_name, @ancestor.father_id), { prompt: "Выберите отца..." }, { class: "form-select bg-white" } %>
+            <%= f.label :father_id, "Ojcec", class: "form-label fw-medium text-muted small mb-1" %>
+            <%= f.select :father_id, options_from_collection_for_select(@group.ancestors, :id, :full_name, @ancestor.father_id), { prompt: "Wybierz ojca..." }, { class: "form-select bg-white" } %>
           </div>
         </div>
       </div>
 
       <div class="d-flex justify-content-end gap-2 mt-4">
-        <%= link_to "Отмена", group_ancestors_path(@group), class: "btn btn-light" %>
-        <%= f.submit "Сохранить персону", class: "btn btn-primary px-4 fw-bold" %>
+        <%= link_to "Odwołanie", group_ancestors_path(@group), class: "btn btn-light" %>
+        <%= f.submit "Zapisz osobę", class: "btn btn-primary px-4 fw-bold" %>
       </div>
 
     <% end %>

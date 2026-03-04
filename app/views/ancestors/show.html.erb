@@ -5,7 +5,7 @@
     <% if @ancestor.avatar.attached? %>
       <%= image_tag @ancestor.avatar, class: "img-fluid rounded mb-3" %>
     <% else %>
-      <div class="alert alert-secondary">Нет фото</div>
+      <div class="alert alert-secondary">Zdjęcia nie ma</div>
     <% end %>
   </div>
 
@@ -14,17 +14,32 @@
 
     <table class="table table-borderless">
       <tr>
-        <th>Дата рождения:</th>
+        <th>Data urodzenia:</th>
         <td><%= @ancestor.birth_date %> (<%= @ancestor.birth_place %>)</td>
       </tr>
 
       <% if @ancestor.alive? %>
-        <tr><th>Статус:</th><td><span class="badge bg-success">Жив</span></td></tr>
-        <tr><th>Телефон:</th><td><%= @ancestor.phone %></td></tr>
-        <tr><th>Адрес:</th><td><%= @ancestor.current_address %></td></tr>
+        <tr>
+          <th>Status:</th>
+          <td><span class="badge bg-success">Żyje</span></td>
+        </tr>
+        <tr>
+          <th>Numer telefonu:</th>
+          <td><%= @ancestor.phone %></td>
+        </tr>
+        <tr>
+          <th>Adres:</th>
+          <td><%= @ancestor.current_address %></td>
+        </tr>
       <% else %>
-        <tr><th>Статус:</th><td><span class="badge bg-secondary">Умер</span></td></tr>
-        <tr><th>Дата смерти:</th><td><%= @ancestor.death_date %> (<%= @ancestor.death_place %>)</td></tr>
+        <tr>
+          <th>Status:</th>
+          <td><span class="badge bg-secondary">Zmarł</span></td>
+        </tr>
+        <tr>
+          <th>Data śmierci:</th>
+          <td><%= @ancestor.death_date %> (<%= @ancestor.death_place %>)</td>
+        </tr>
       <% end %>
     </table>
   </div>
@@ -32,7 +47,7 @@
 
 <hr>
 
-<h3>Документы</h3>
+<h3>Dokumenty</h3>
 <% if @ancestor.documents.attached? %>
   <div class="mb-4">
     <% @ancestor.documents.each do |doc| %>
@@ -40,12 +55,12 @@
     <% end %>
   </div>
 <% else %>
-  <p class="text-muted">Документов нет.</p>
+  <p class="text-muted">Dokumentów nie ma</p>
 <% end %>
 
 <hr>
 
-<h3>Семья</h3>
+<h3>Rodzina</h3>
 
 <%= render "relationships/form", group: @group, ancestor: @ancestor, new_relationship: @new_relationship %>
 
@@ -55,22 +70,22 @@
                collection: @ancestor.active_relationships,
                locals: { group: @group, ancestor: @ancestor } %>
   <% else %>
-    <li class="list-group-item text-muted">Родственные связи еще не добавлены.</li>
+    <li class="list-group-item text-muted">Powiązania rodzinne nie zostały jeszcze dodane</li>
   <% end %>
 </ul>
 
-<h3>Родители</h3>
+<h3>Rodzice</h3>
 <ul>
   <% @ancestor.active_relationships.where(relation_type: ['father', 'mother']).each do |rel| %>
     <li><%= link_to rel.relative.full_name, group_ancestor_path(@group, rel.relative) %> (<%= rel.relation_type %>)</li>
   <% end %>
 
   <% @ancestor.passive_relationships.where(relation_type: 'child').each do |rel| %>
-    <li><%= link_to rel.ancestor.full_name, group_ancestor_path(@group, rel.ancestor) %> (Родитель)</li>
+    <li><%= link_to rel.ancestor.full_name, group_ancestor_path(@group, rel.ancestor) %> (Rodzic)</li>
   <% end %>
 </ul>
 
-<h3>Дети</h3>
+<h3>Dzieci</h3>
 <ul>
   <% @ancestor.active_relationships.where(relation_type: 'child').each do |rel| %>
     <li><%= link_to rel.relative.full_name, group_ancestor_path(@group, rel.relative) %></li>
@@ -93,7 +108,7 @@
 
 <div class="card shadow-sm mt-4">
   <div class="card-header bg-light">
-    <h4 class="mb-0">📜 Хронология событий</h4>
+    <h4 class="mb-0">Chronologia wydarzeń</h4>
   </div>
 
   <div class="card-body p-0">
@@ -125,8 +140,8 @@
       </div>
     <% else %>
       <div class="p-3 text-muted">
-        События для этого человека пока не добавлены.
-        <%= link_to "Добавить событие", new_group_event_path(@group), class: "text-decoration-none" %>
+        Wydarzenia dla tej osoby nie zostały jeszcze dodane
+        <%= link_to "Dodaj wydarzenie", new_group_event_path(@group), class: "text-decoration-none" %>
       </div>
     <% end %>
   </div>
@@ -134,7 +149,7 @@
 
 <div class="card shadow-sm mt-4 mb-5">
   <div class="card-header bg-light">
-    <h4 class="mb-0">📖 Упоминается в историях</h4>
+    <h4 class="mb-0">Wspomniany w historiach</h4>
   </div>
 
   <div class="card-body p-0">
@@ -157,13 +172,13 @@
       </div>
     <% else %>
       <div class="p-3 text-muted">
-        С этим человеком пока не связано ни одной истории.
+        Z tą osobą nie wiąże się jeszcze żadna historia
       </div>
     <% end %>
   </div>
 </div>
 
 <div class="mt-5">
-  <%= link_to "Редактировать данные персоны", edit_group_ancestor_path(@group, @ancestor), class: "btn btn-primary" %>
-  <%= link_to "Назад к списку", group_ancestors_path(@group), class: "btn btn-outline-secondary" %>
+  <%= link_to "Edytuj dane osoby", edit_group_ancestor_path(@group, @ancestor), class: "btn btn-primary" %>
+  <%= link_to "Powrót do listy", group_ancestors_path(@group), class: "btn btn-outline-secondary" %>
 </div>

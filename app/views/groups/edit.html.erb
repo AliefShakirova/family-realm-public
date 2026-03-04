@@ -4,44 +4,44 @@
 
       <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><%= link_to "Группы", groups_path, class: "text-decoration-none" %></li>
+          <li class="breadcrumb-item"><%= link_to "Grupy", groups_path, class: "text-decoration-none" %></li>
           <li class="breadcrumb-item active"><%= @group.name %></li>
-          <li class="breadcrumb-item active" aria-current="page">Настройки</li>
+          <li class="breadcrumb-item active" aria-current="page">Ustawienia</li>
         </ol>
       </nav>
 
       <div class="card shadow-sm border-0" style="border-radius: 20px;">
         <div class="card-header bg-white border-0 pt-4 pb-0 text-center">
-          <h2 class="fw-bold text-dark">⚙️ Настройки группы</h2>
-          <p class="text-muted small">Измените основную информацию о вашей семье</p>
+          <h2 class="fw-bold text-dark">Ustawienia grupy</h2>
+          <p class="text-muted small">Zmień podstawowe informacje o swojej rodzinie</p>
         </div>
 
         <div class="card-body p-4 p-md-5">
           <%= form_with(model: @group, local: true) do |f| %>
 
             <div class="mb-4">
-              <%= f.label :name, "Название группы", class: "form-label fw-bold text-secondary small uppercase" %>
-              <%= f.text_field :name, class: "form-control form-control-lg", placeholder: "Например: Семья Ивановых" %>
+              <%= f.label :name, "Nazwa grupy", class: "form-label fw-bold text-secondary small uppercase" %>
+              <%= f.text_field :name, class: "form-control form-control-lg", placeholder: "Na przykład: Rodzina Iwanowów" %>
             </div>
 
             <div class="mb-4">
-              <%= f.label :description, "Описание семьи", class: "form-label fw-bold text-secondary small" %>
-              <%= f.text_area :description, class: "form-control", rows: 4, placeholder: "Расскажите кратко историю вашего рода..." %>
+              <%= f.label :description, "Opis rodziny", class: "form-label fw-bold text-secondary small" %>
+              <%= f.text_area :description, class: "form-control", rows: 4, placeholder: "Opowiedz krótko historię swojej rodziny..." %>
             </div>
 
             <div class="mb-4">
-              <%= f.label :privacy, "Тип группы", class: "form-label fw-bold text-secondary small" %>
+              <%= f.label :privacy, "Typ grupy", class: "form-label fw-bold text-secondary small" %>
               <div class="input-group">
                 <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-lock text-muted"></i></span>
-                <%= f.select :privacy, [['🔓 Открытая (видят все)', 'public'], ['🔒 Закрытая (только по приглашению)', 'private']], {}, { class: "form-select border-start-0" } %>
+                <%= f.select :privacy, [['Otwarta (widoczna dla wszystkich)', 'public'], ['Zamknięta (tylko na zaproszenie)', 'private']], {}, { class: "form-select border-start-0" } %>
               </div>
             </div>
 
             <hr class="my-4 text-muted opacity-25">
 
             <div class="d-grid gap-2">
-              <%= f.submit "Сохранить изменения", class: "btn btn-primary btn-lg fw-bold shadow-sm" %>
-              <%= link_to "Отмена", group_ancestors_path(@group), class: "btn btn-link text-muted text-decoration-none mt-2" %>
+              <%= f.submit "Zapisz zmiany", class: "btn btn-primary btn-lg fw-bold shadow-sm" %>
+              <%= link_to "Anulowanie", group_ancestors_path(@group), class: "btn btn-link text-muted text-decoration-none mt-2" %>
             </div>
 
           <% end %>
@@ -49,9 +49,9 @@
       </div>
 
       <div class="mt-5 p-4 bg-danger-subtle rounded-4 border border-danger-alpha">
-        <h5 class="text-danger fw-bold"><i class="fa-solid fa-triangle-exclamation me-2"></i>Опасная зона</h5>
-        <p class="small text-danger mb-3">Удаление группы приведет к безвозвратной потере всех анкет родственников, древа и архивов.</p>
-        <%= button_to "Удалить группу навсегда", group_path(@group), method: :delete, class: "btn btn-outline-danger btn-sm", data: { turbo_confirm: "Вы абсолютно уверены? Это действие нельзя отменить." } %>
+        <h5 class="text-danger fw-bold"><i class="fa-solid fa-triangle-exclamation me-2"></i>Strefa zagrożenia</h5>
+        <p class="small text-danger mb-3">Usunięcie grupy spowoduje nieodwracalną utratę wszystkich ankiet krewnych, drzewa genealogicznego i archiwów</p>
+        <%= button_to "Usuń grupę na stałe", group_path(@group), method: :delete, class: "btn btn-outline-danger btn-sm", data: { turbo_confirm: "Jesteś całkowicie pewien? Tego działania nie można cofnąć" } %>
       </div>
 
     </div>

@@ -3,8 +3,8 @@
     <h2 class="mb-0 fw-bold"><%= @story.title %></h2>
     <div>
       <% if current_user == @story.user %>
-        <%= link_to "Редактировать", edit_group_story_path(@group, @story), class: "btn btn-outline-primary btn-sm" %>
-        <%= button_to "Удалить", group_story_path(@group, @story), method: :delete, form: { style: 'display:inline-block;' }, class: "btn btn-danger btn-sm ms-2" %>
+        <%= link_to "Edytuj", edit_group_story_path(@group, @story), class: "btn btn-outline-primary btn-sm" %>
+        <%= button_to "Usuń", group_story_path(@group, @story), method: :delete, form: { style: 'display:inline-block;' }, class: "btn btn-danger btn-sm ms-2" %>
       <% end %>
     </div>
   </div>
@@ -12,17 +12,17 @@
   <div class="card-body">
     <div class="d-flex justify-content-between border-bottom pb-3 mb-4">
       <div class="text-muted">
-        <strong>Автор:</strong> <%= @story.user.email %><br>
-        <strong>Добавлено:</strong> <%= @story.created_at.strftime("%d.%m.%Y") %>
+        <strong>Autor:</strong> <%= @story.user.email %><br>
+        <strong>Dodano:</strong> <%= @story.created_at.strftime("%d.%m.%Y") %>
       </div>
 
       <div class="text-end">
         <% if @story.story_date.present? %>
-          <span class="badge bg-success mb-2 fs-6">📅 Дата события: <%= @story.story_date.strftime("%d.%m.%Y") %></span><br>
+          <span class="badge bg-success mb-2 fs-6"> Data wydarzenia: <%= @story.story_date.strftime("%d.%m.%Y") %></span><br>
         <% end %>
 
         <% if @story.ancestors.any? %>
-          <small class="text-muted"><strong>Упоминаются:</strong></small><br>
+          <small class="text-muted"><strong>Wspomniane są:</strong></small><br>
           <% @story.ancestors.each do |person| %>
             <%= link_to person.full_name, group_ancestor_path(@group, person), class: "badge bg-info text-dark text-decoration-none" %>
           <% end %>
@@ -36,7 +36,7 @@
 
     <% if @story.media.attached? %>
       <div class="bg-light p-4 rounded">
-        <h5 class="mb-3">📎 Прикрепленные материалы:</h5>
+        <h5 class="mb-3"> Załączone materiały:</h5>
         <div class="row">
           <% @story.media.each do |file| %>
             <div class="col-md-4 mb-3">
@@ -58,4 +58,4 @@
   </div>
 </div>
 
-<%= link_to "← Вернуться к списку историй", group_stories_path(@group), class: "btn btn-secondary" %>
+<%= link_to "Powrót do listy historii", group_stories_path(@group), class: "btn btn-secondary" %>

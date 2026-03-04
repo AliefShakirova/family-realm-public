@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h1>🌳 Интерактивное Древо</h1>
-  <%= link_to "К списку персон", group_ancestors_path(@group), class: "btn btn-outline-primary" %>
+  <h1> Drzewo rodzinne</h1>
+  <%= link_to "Do listy osób", group_ancestors_path(@group), class: "btn btn-outline-primary" %>
 </div>
 
 <div class="row">
@@ -14,8 +14,8 @@
           </div>
         <% else %>
           <div class="text-muted mt-5">
-            <h3 style="color: #adb5bd;">Холст пуст</h3>
-            <p>Добавьте связи в панели справа, чтобы здесь появилось древо.</p>
+            <h3 style="color: #adb5bd;">Płótno jest puste</h3>
+            <p>Dodaj połączenia w panelu po prawej stronie, aby pojawiło się drzewo</p>
           </div>
         <% end %>
 
@@ -26,32 +26,32 @@
   <div class="col-md-3">
     <div class="card shadow-sm mb-4">
       <div class="card-header bg-light">
-        <h5 class="mb-0 m-1">🔗 Создать связь</h5>
+        <h5 class="mb-0 m-1">Utwórz połączenie</h5>
       </div>
       <div class="card-body">
-        <p class="text-muted small">Выберите двух персон и укажите, кем они приходятся друг другу.</p><a href=""></a>
+        <p class="text-muted small">Wybierz dwie osoby i określ, kim są dla siebie nawzajem</p><a href=""></a>
 
         <%= form_with url: make_connection_group_path(@group), method: :post, local: true do |f| %>
           <div class="mb-3">
-            <label class="form-label fw-bold">Кто (Ребенок):</label>
-            <%= f.select :child_id, options_from_collection_for_select(@ancestors, :id, :full_name), { prompt: "Выберите персону..." }, { class: "form-select", required: true } %>
+            <label class="form-label fw-bold">Kto (Dzicko):</label>
+            <%= f.select :child_id, options_from_collection_for_select(@ancestors, :id, :full_name), { prompt: "Wybierz osobę..." }, { class: "form-select", required: true } %>
           </div>
 
           <div class="mb-3 text-center">
-            <span class="badge bg-secondary">⬆️ является ребенком для ⬆️</span>
+            <span class="badge bg-secondary">jest dzieckiem dla</span>
           </div>
 
           <div class="mb-3">
-            <label class="form-label fw-bold">Родитель:</label>
-            <%= f.select :parent_id, options_from_collection_for_select(@ancestors, :id, :full_name), { prompt: "Выберите родителя..." }, { class: "form-select", required: true } %>
+            <label class="form-label fw-bold">Rodzic:</label>
+            <%= f.select :parent_id, options_from_collection_for_select(@ancestors, :id, :full_name), { prompt: "Wybierz rodzica..." }, { class: "form-select", required: true } %>
           </div>
 
           <div class="mb-3">
             <label class="form-label fw-bold">Роль:</label>
-            <%= f.select :role, [["Это Мать", "mother"], ["Это Отец", "father"]], {}, { class: "form-select" } %>
+            <%= f.select :role, [["To jest matka", "mother"], ["To Ojciec", "father"]], {}, { class: "form-select" } %>
           </div>
 
-          <%= f.submit "Связать персон", class: "btn btn-primary w-100" %>
+          <%= f.submit "Połączyć osoby", class: "btn btn-primary w-100" %>
         <% end %>
 
       </div>

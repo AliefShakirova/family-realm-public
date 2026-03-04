@@ -168,7 +168,7 @@ class GroupsController < ApplicationController
     )
 
     if @event.save
-      redirect_to timeline_group_path(@group), notice: "Событие успешно добавлено на ось времени!"
+      redirect_to timeline_group_path(@group), notice: "Событие успешно добавлено на ось времени"
     else
       redirect_to timeline_group_path(@group), alert: "Ошибка: проверьте правильность заполнения полей (название и дата обязательны)."
     end

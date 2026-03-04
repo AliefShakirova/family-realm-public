@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h1>Места семьи</h1>
-  <%= link_to "Добавить новое место", new_group_location_path(@group), class: "btn btn-success" %>
+  <h1>Miejsca rodzinne</h1>
+  <%= link_to "Dodaj nowe miejsce", new_group_location_path(@group), class: "btn btn-success" %>
 </div>
 
 <% if @locations.any? %>
@@ -19,10 +19,10 @@
           </div>
           <div class="card-footer bg-transparent border-top-0">
             <div class="btn-group w-100">
-              <%= link_to "Подробнее", group_location_path(@group, location), class: "btn btn-sm btn-outline-primary" %>
-              <%= link_to "Изменить", edit_group_location_path(@group, location), class: "btn btn-sm btn-outline-secondary" %>
+              <%= link_to "Więcej informacji", group_location_path(@group, location), class: "btn btn-sm btn-outline-primary" %>
+              <%= link_to "Zmień", edit_group_location_path(@group, location), class: "btn btn-sm btn-outline-secondary" %>
 
-              <%= button_to "Удалить",
+              <%= button_to "Usuń",
                             group_location_path(@group, location),
                             method: :delete,
                             form: { style: 'display:inline-block;' },
@@ -35,10 +35,10 @@
   </div>
 <% else %>
   <div class="alert alert-info text-center">
-    <h4>Здесь пока пусто 🌍</h4>
-    <p>Добавьте памятные места вашей семьи: дома, города, места захоронений.</p>
-    <%= link_to "Добавить первое место", new_group_location_path(@group), class: "btn btn-primary mt-2" %>
+    <h4>Tutaj jest jeszcze pusto</h4>
+    <p>Dodaj miejsca związane z historią Twojej rodziny: domy, miasta, miejsca pochówku</p>
+    <%= link_to "Dodaj pierwsze miejsce", new_group_location_path(@group), class: "btn btn-primary mt-2" %>
   </div>
 <% end %>
 
-<%= link_to "Назад в группу", group_path(@group), class: "btn btn-secondary mt-3" %>
+<%= link_to "Powrót do grupy", group_path(@group), class: "btn btn-secondary mt-3" %>

@@ -2,31 +2,31 @@
   <div class="card-header bg-white d-flex justify-content-between align-items-center">
     <h2 class="mb-0"><%= @event.title %></h2>
     <div>
-      <%= link_to "Редактировать", edit_group_event_path(@group, @event), class: "btn btn-outline-primary btn-sm" %>
-      <%= button_to "Удалить", group_event_path(@group, @event), method: :delete, form: { style: 'display:inline-block;' }, class: "btn btn-danger btn-sm ms-2" %>
+      <%= link_to "Edytuj", edit_group_event_path(@group, @event), class: "btn btn-outline-primary btn-sm" %>
+      <%= button_to "Usunąć", group_event_path(@group, @event), method: :delete, form: { style: 'display:inline-block;' }, class: "btn btn-danger btn-sm ms-2" %>
     </div>
   </div>
 
   <div class="card-body">
     <div class="row">
       <div class="col-md-8">
-        <p class="lead"><strong>📅 Дата:</strong> <%= @event.event_date %></p>
+        <p class="lead"><strong>Data:</strong> <%= @event.event_date %></p>
 
         <% if @event.location %>
-          <p class="lead"><strong>📍 Место:</strong> <%= link_to @event.location.name, group_location_path(@group, @event.location), class: "text-decoration-none" %></p>
+          <p class="lead"><strong>Miejsce:</strong> <%= link_to @event.location.name, group_location_path(@group, @event.location), class: "text-decoration-none" %></p>
         <% elsif @event.location_name.present? %>
-          <p class="lead"><strong>📍 Место:</strong> <%= @event.location_name %></p>
+          <p class="lead"><strong>Miejsce:</strong> <%= @event.location_name %></p>
         <% end %>
 
         <hr>
-        <h5>Описание</h5>
-        <p style="white-space: pre-wrap;"><%= @event.description.presence || "Нет описания." %></p>
+        <h5>Opis</h5>
+        <p style="white-space: pre-wrap;"><%= @event.description.presence || "Opisa nie ma" %></p>
       </div>
 
       <div class="col-md-4">
         <div class="card bg-light">
           <div class="card-body">
-            <h5 class="card-title">Участники</h5>
+            <h5 class="card-title">Uczestnicy</h5>
             <% if @event.ancestors.any? %>
               <ul class="list-unstyled mb-0">
                 <% @event.ancestors.each do |person| %>
@@ -36,7 +36,7 @@
                 <% end %>
               </ul>
             <% else %>
-              <p class="text-muted small mb-0">Никто не отмечен.</p>
+              <p class="text-muted small mb-0">Nikt nie został zaznaczony</p>
             <% end %>
           </div>
         </div>
@@ -47,7 +47,7 @@
 
 <% if @event.media.attached? %>
   <hr>
-  <h5>Медиафайлы и документы:</h5>
+  <h5>Pliki multimedialne i dokumenty:</h5>
   <div class="row mt-3">
     <% @event.media.each do |file| %>
       <div class="col-md-4 mb-3">
@@ -70,4 +70,4 @@
   </div>
 <% end %>
 
-<%= link_to "← Назад к хронике", group_events_path(@group), class: "btn btn-secondary" %>
+<%= link_to "Powrót do kroniki", group_events_path(@group), class: "btn btn-secondary" %>

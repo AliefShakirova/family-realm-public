@@ -4,7 +4,7 @@
   </div>
 
   <div class="col-md-9">
-    <h2>Участники группы</h2>
+    <h2>Uczestnicy grupy</h2>
 
     <div class="card mb-4">
       <ul class="list-group list-group-flush">
@@ -13,30 +13,30 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
               <%= user.email %>
               <% if user == @group.owner %>
-                <span class="badge bg-warning text-dark">Админ</span>
+                <span class="badge bg-warning text-dark">Admin</span>
               <% else %>
-                <span class="badge bg-secondary">Участник</span>
+                <span class="badge bg-secondary">Uczestnik</span>
               <% end %>
             </li>
           <% end %>
         <% else %>
-          <li class="list-group-item">Только вы</li>
+          <li class="list-group-item">Tylko ty</li>
         <% end %>
       </ul>
     </div>
 
     <div class="card bg-light">
       <div class="card-body">
-        <h4>Пригласить нового участника</h4>
-        <p class="text-muted small">Введите Email родственника, чтобы отправить ему ключ доступа.</p>
+        <h4>Zaprosić nowego uczestnika</h4>
+        <p class="text-muted small">Wpisz adres e-mail krewnego, aby wysłać mu link umożliwiający dołączenie do serwisu</p>
 
         <%= form_with url: invite_group_path(@group), method: :post, local: true, class: "row g-3" do |f| %>
           <div class="col-md-8">
-            <%= f.label :email, "Email адрес", class: "visually-hidden" %>
+            <%= f.label :email, "Email adres", class: "visually-hidden" %>
             <%= f.email_field :email, placeholder: "example@gmail.com", class: "form-control", required: true %>
           </div>
           <div class="col-md-4">
-            <%= f.submit "Отправить приглашение", class: "btn btn-primary w-100" %>
+            <%= f.submit "Wyślij zaproszenie", class: "btn btn-primary w-100" %>
           </div>
         <% end %>
       </div>

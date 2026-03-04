@@ -1,41 +1,41 @@
 <div class="list-group mb-4">
   <%= link_to group_path(@group), class: "list-group-item list-group-item-action #{'active' if current_page?(group_path(@group))}" do %>
-    🏠 Обзор группы
+    Przegląd grupy
   <% end %>
 
   <%= link_to group_ancestors_path(@group), class: "list-group-item list-group-item-action #{'active' if request.path.include?('ancestors')}" do %>
-    👥 Персоны
+    Osoby
   <% end %>
 
   <%= link_to tree_group_path(@group), class: "list-group-item list-group-item-action #{'active' if current_page?(tree_group_path(@group))}" do %>
-    🌳 Древо
+    Drzewo
   <% end %>
 
   <%= link_to group_locations_path(@group), class: "list-group-item list-group-item-action #{'active' if request.path.include?('locations')}" do %>
-    🌍 Места
+    Miejsca
   <% end %>
 
   <%= link_to group_events_path(@group), class: "list-group-item list-group-item-action #{'active' if request.path.include?('events')}" do %>
-    📅 События
+    Wydarzenia
   <% end %>
 
   <%= link_to group_stories_path(@group), class: "list-group-item list-group-item-action #{'active' if request.path.include?('stories')}" do %>
-    📖 Дневник воспоминаний
+    Dziennik wspomnień
   <% end %>
 
   <%= link_to timeline_group_path(@group), class: "list-group-item list-group-item-action #{'active' if current_page?(timeline_group_path(@group))}" do %>
-    ⏳ Ось времени
+    Oś czasu
   <% end %>
 
   <%= link_to members_group_path(@group), class: "list-group-item list-group-item-action #{'active' if current_page?(members_group_path(@group))}" do %>
-    👥 Участники и Приглашения
+    Uczestnicy i zaproszenia
   <% end %>
 
   <%= link_to edit_group_path(@group), class: "list-group-item list-group-item-action" do %>
-    ⚙️ Настройки
+    Ustawienia
   <% end %>
 </div>
 
 <div class="d-grid">
-  <%= link_to "Назад к профилю", user_profile_path, class: "btn btn-outline-secondary btn-sm" %>
+  <%= link_to "Powrót do profilu", user_profile_path, class: "btn btn-outline-secondary btn-sm" %>
 </div>

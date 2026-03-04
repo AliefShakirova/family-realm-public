@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h1>📖 Семейные истории</h1>
-  <%= link_to "Написать историю", new_group_story_path(@group), class: "btn btn-success" %>
+  <h1>Historie rodzinne</h1>
+  <%= link_to "Napisz historię", new_group_story_path(@group), class: "btn btn-success" %>
 </div>
 
 <% if @stories.any? %>
@@ -14,7 +14,7 @@
             </h4>
 
             <h6 class="card-subtitle mb-3 text-muted">
-              ✍️ <%= story.user.email %> | 🕒 <%= story.created_at.strftime("%d.%m.%Y") %>
+              ✍️ <%= story.user.email %> |  <%= story.created_at.strftime("%d.%m.%Y") %>
             </h6>
 
             <p class="card-text text-muted">
@@ -22,7 +22,7 @@
             </p>
           </div>
           <div class="card-footer bg-white border-0 text-end">
-            <%= link_to "Читать далее →", group_story_path(@group, story), class: "btn btn-sm btn-outline-primary" %>
+            <%= link_to "Czytaj dalej", group_story_path(@group, story), class: "btn btn-sm btn-outline-primary" %>
           </div>
         </div>
       </div>
@@ -30,8 +30,8 @@
   </div>
 <% else %>
   <div class="alert alert-info text-center mt-4 p-5 shadow-sm">
-    <h4>Здесь пока пусто 🖋️</h4>
-    <p>Сохраните воспоминания, легенды или забавные случаи из жизни вашей семьи.</p>
-    <%= link_to "Написать первую историю", new_group_story_path(@group), class: "btn btn-primary mt-2" %>
+    <h4>Tutaj jeszcze pusto ️</h4>
+    <p>Zachowaj wspomnienia, zabawne historie z życia swojej rodziny</p>
+    <%= link_to "Napisz swoją pierwszą historię", new_group_story_path(@group), class: "btn btn-primary mt-2" %>
   </div>
 <% end %>

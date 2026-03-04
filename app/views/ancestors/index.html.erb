@@ -1,7 +1,7 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold"><i class="fa-solid fa-users text-primary me-2"></i> Персоны группы</h2>
-    <%= link_to "+ Добавить персону", new_group_ancestor_path(@group), class: "btn btn-primary shadow-sm" %>
+    <h2 class="fw-bold"><i class="fa-solid fa-users text-primary me-2"></i> Osoby grupy </h2>
+    <%= link_to " Dodać osobę ", new_group_ancestor_path(@group), class: "btn btn-primary shadow-sm" %>
   </div>
 
   <div class="row">
@@ -23,11 +23,11 @@
                 <% if person.birth_date.present? %>
                   <%= person.birth_date.strftime("%Y") %> – <%= person.death_date.present? ? person.death_date.strftime("%Y") : "н.в." %>
                 <% else %>
-                  <span class="text-light-muted">Даты не указаны</span>
+                  <span class="text-light-muted">Date nie wskazane</span>
                 <% end %>
               </p>
 
-              <%= link_to "Перейти в профиль", group_ancestor_path(@group, person), class: "btn btn-outline-primary btn-sm w-100 stretched-link" %>
+              <%= link_to "Przejść do profilu", group_ancestor_path(@group, person), class: "btn btn-outline-primary btn-sm w-100 stretched-link" %>
             </div>
           </div>
         </div>
@@ -37,8 +37,8 @@
         <div class="card border-0 shadow-sm text-center py-5">
           <div class="card-body text-muted">
             <i class="fa-solid fa-user-plus fa-3x mb-3 text-light"></i>
-            <h4>В этой группе пока нет персон</h4>
-            <p>Добавьте первого родственника, чтобы начать строить семейное древо.</p>
+            <h4>W tej grupie nie ma jeszcze żadnych osób</h4>
+            <p>Dodaj pierwszego krewnego, aby rozpocząć tworzenie drzewa genealogicznego</p>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h1>Хроника семьи</h1>
-  <%= link_to "Добавить событие", new_group_event_path(@group), class: "btn btn-success" %>
+  <h1>Kronika rodziny</h1>
+  <%= link_to "Dodaj wydarzenie", new_group_event_path(@group), class: "btn btn-success" %>
 </div>
 
 <% if @events.any? %>
@@ -31,8 +31,8 @@
   </div>
 <% else %>
   <div class="alert alert-info text-center mt-4">
-    <h4>История пока не написана 📜</h4>
-    <p>Добавьте важные даты: дни рождения, свадьбы, переезды или выпускные.</p>
-    <%= link_to "Добавить первое событие", new_group_event_path(@group), class: "btn btn-primary" %>
+    <h4>Historia nie została jeszcze napisana</h4>
+    <p>Dodaj ważne daty: urodziny, śluby, przeprowadzki lub ukończenie szkoły</p>
+    <%= link_to "Dodaj pierwsze wydarzenie", new_group_event_path(@group), class: "btn btn-primary" %>
   </div>
 <% end %>

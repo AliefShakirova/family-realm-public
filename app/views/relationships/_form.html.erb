@@ -1,30 +1,30 @@
 <div class="card bg-light mt-3">
   <div class="card-body">
-    <h5>Добавить новую связь</h5>
+    <h5>Dodaj nowe połączenie</h5>
 
     <%= form_with model: [group, ancestor, new_relationship], local: true do |f| %>
 
       <div class="row">
         <div class="col-md-5">
-          <%= f.label :relation_type, "Кто он(а)?" %>
+          <%= f.label :relation_type, "Kto on(a)?" %>
           <%= f.select :relation_type,
-                       options_for_select([['Отец', 'father'], ['Мать', 'mother'], ['Супруг(а)', 'spouse'], ['Ребенок', 'child']]),
-                       { prompt: "Выберите тип" },
+                       options_for_select([['Ojciec', 'father'], ['Matka', 'mother'], ['Małżonek/małżonka', 'spouse'], ['Dziecko', 'child']]),
+                       { prompt: "Wybierz typ" },
                        class: "form-control" %>
         </div>
 
         <div class="col-md-5">
-          <%= f.label :relative_id, "Родственник" %>
+          <%= f.label :relative_id, "Krewny" %>
           <%= f.collection_select :relative_id,
                                   group.ancestors.where.not(id: ancestor.id),
                                   :id,
                                   :full_name,
-                                  { prompt: "Выберите человека" },
+                                  { prompt: "Wybierzcie człowieka" },
                                   class: "form-control" %>
         </div>
 
         <div class="col-md-2 d-flex align-items-end">
-          <%= f.submit "Добавить", class: "btn btn-success w-100" %>
+          <%= f.submit "Dodać", class: "btn btn-success w-100" %>
         </div>
       </div>
 
