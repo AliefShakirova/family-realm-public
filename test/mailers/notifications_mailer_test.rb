@@ -5,7 +5,7 @@ class NotificationsMailerTest < ActionMailer::TestCase
     mail = NotificationsMailer.signup
     assert_equal "Signup", mail.subject
     assert_equal ["to@example.org"], mail.to
-    assert_equal ["from@example.com"], mail.from
+    assert_equal ["from@familyrealm.com"], mail.from
     assert_match "Hi", mail.body.encoded
   end
 
@@ -13,7 +13,7 @@ class NotificationsMailerTest < ActionMailer::TestCase
     mail = NotificationsMailer.forgot_password
     assert_equal "Forgot password", mail.subject
     assert_equal ["to@example.org"], mail.to
-    assert_equal ["from@example.com"], mail.from
+    assert_equal ["from@familyrealm.com"], mail.from
     assert_match "Hi", mail.body.encoded
   end
 
@@ -21,7 +21,7 @@ class NotificationsMailerTest < ActionMailer::TestCase
     mail = NotificationsMailer.invoice
     assert_equal "Invoice", mail.subject
     assert_equal ["to@example.org"], mail.to
-    assert_equal ["from@example.com"], mail.from
+    assert_equal ["from@familyrealm.com"], mail.from
     assert_match "Hi", mail.body.encoded
   end
 
