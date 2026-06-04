@@ -80,7 +80,7 @@ Main sections of the platform:
 Clone the repository:
 
 ```
-git clone https://github.com/your-username/family-realm.git
+git clone https://github.com/AliefShakirova/family-realm.git
 ```
 
 Go to the project directory:
